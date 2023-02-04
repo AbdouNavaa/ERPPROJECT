@@ -1,4 +1,3 @@
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> 
     <div class="container-fluid">
       <a class="navbar-brand" href="/index">Home</a>
@@ -7,9 +6,46 @@
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
-          {% comment %} <li class="nav-item">
-            <a class="nav-link" href="/clientList">Clients</a>
+          <li>
+            <a href="#">Clients</a>
+                    <ul>
+                        <li><a href="{% url 'clientList'  %}">List of Clients </a></li>
+                        <li><a href="{% url 'factCl'  %}">Factures</a></li>
+                        <li><a href="{% url 'paiments'  %}">Paiments</a></li>
+                    </ul>
+                    
+            <!-- End .megamenu -->
+        </li>
+        <li>
+            <a href="#">Products</a>
+            <ul>
+                <li><a href="{% url 'clientList'  %}">List of Clients </a></li>
+                <li><a href="#">Factures</a></li>
+            </ul>
+            <!-- End .megamenu -->
+            <li>
+              <a href="#">Fournisseurs</a>
+              <ul>
+                  <li><a href="{% url 'foursList'  %}">List of Fournisseurs </a></li>
+                  <li><a href="{% url 'factFr'  %}">Factures</a></li>
+              </ul>
+              <!-- End .megamenu -->
           </li>
+          <li>
+              <a href="#">Comptabilite</a>
+              <ul>
+                  <li><a href="{% url 'pieces'  %}">Piece Comptables </a></li>
+                  <li><a href="{% url 'ecriture'  %}">Ecriture Comptable</a></li>
+              </ul>
+          </li>
+          <li><a href="#">Analyse</a>
+              <ul>
+                  <li><a href="#">Billan </a></li>
+                  <li><a href="{% url 'GL'  %}">GL</a></li>
+              </ul>
+          </li>
+          </li>
+        {% comment %} </li>
           <li class="nav-item">
             <a class="nav-link" href="/foursList">Fournisseurs</a>
           </li>
@@ -21,10 +57,10 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/analyse">Analyse</a>
-          </li> {% endcomment %}
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="/logout">Logout</a>
-          </li>
+          </li> {% endcomment %}
         </ul>
       </div>
     </div>

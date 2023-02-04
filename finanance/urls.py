@@ -21,15 +21,34 @@ urlpatterns = [
     path('factCl/', views.factCl, name='factCl'),
     path('create_fact/', views.FactClCreateView.as_view(), name='create_factCl'),
    
+# Client
     path('client/<int:pk>/update/', views.ClientUpdateView.as_view(), name='client_update'),
     path('client/<int:pk>/delete/', views.ClientDeleteView.as_view(), name='delete_client'),
     path('clientList/', views.clientList, name='clientList'),
     path('create_client/', views.ClientCreateView.as_view(), name='create_client'),
    
+# Fournisseurs
     path('fourn/<int:pk>/update/', views.FournUpdateView.as_view(), name='fourn_update'),
     path('fours/<int:pk>/delete/', views.FournDeleteView.as_view(), name='delete_fourn'),
     path('foursList/', views.foursList, name='foursList'),
     path('create_fours/', views.FoursCreateView.as_view(), name='create_fours'),
+
+
+    path('GL/', views.GL, name='GL'),
+    
+# Paiements
+    path('paiments/', views.Paiments, name='paiments'),
+    path('paiments/<int:pk>/update/', views.PaiementUpdateView.as_view(), name='pie_update'),
+    path('paiment/<int:pk>/delete/', views.PaiementDeleteView.as_view(), name='delete_pie'),
+    path('create_pie/', views.PaiementCreateView.as_view(), name='create_pie'),
+# Ecritures Comptable
+    path('ecriture/', views.EcritureComp, name='ecriture'),
+    path('ecrit/<int:pk>/update/', views.EcritUpdateView.as_view(), name='ecrit_update'),
+# Pieces
+    path('piece/<int:pk>/update/', views.PieceUpdateView.as_view(), name='piece_update'),
+    path('piece/<int:pk>/delete/', views.PieceDeleteView.as_view(), name='delete_piece'),
+    path('pieces/', views.Pieces, name='pieces'),
+    path('create_piece/', views.PieceCreateView.as_view(), name='create_piece'),
 
 ] 
 # + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

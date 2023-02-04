@@ -1,6 +1,10 @@
 {% extends "base/base.html" %}
 
 {% block body %}
+<h1>Clients</h1>
+
+<a href="{% url 'create_client' %}" class="btn btn-success" style="width: max-content;">Ajouter</a>
+
 <table class="table">
   <thead>
     <tr>
@@ -21,8 +25,7 @@
       <th scope="row">{{client.mobile}}</th>
       <th scope="row">{{client.Type}}</th>
       <td><a class="btn btn-primary btn-xs" href="{% url 'client_update' client.id  %}"><span class="glyphicon glyphicon-edit">Update</span></a></td>
-      <td><a href="{% url 'delete_client' client.id  %}" class="btn btn-dark">Cancel</a></td>
-      <td><a href="{% url 'create_client' %}" class="btn btn-info">Ajouter</a></td>
+      <td><a href="{% url 'delete_client' client.id  %}" class="btn btn-danger">Delete</a></td>
 
     </tr>
     {%endfor%}

@@ -1,0 +1,95 @@
+{% extends "base/base.html" %}
+
+{% block body %}
+<h1>Ecritures Comptables</h1>
+
+{% comment %} <a href="{% url 'create_piece' %}" class="btn btn-success" style="width: max-content;">Ajouter</a> {% endcomment %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Code</th>
+      <th scope="col">Partenaire</th>
+      <th scope="col">Lib</th>
+      <th scope="col">Deb</th>
+      <th scope="col">Cred</th>
+    </tr>
+    <tbody>
+  </thead>
+
+    {% for fact in facturesList %}
+    <tr>
+      <th scope="row">{{fact.date_facturation}}</th>
+      <th scope="row">{{fact.code}}</th>
+      <th scope="row">{{fact.fournisseur}}</th>
+      <th scope="row">{{fact.produit}}</th>
+      <th scope="row">{{fact.HTaxe}}</th>  
+      <th scope="row">0.0</th>
+      {% comment %} <th scope="row">{{fact.total}}</th> {% endcomment %}
+    {%endfor%}
+    {% for fact in facturesList %}
+    <tr>
+      <th scope="row">{{fact.date_facturation}}</th>
+      <th scope="row">{{fact.code}}</th>
+      <th scope="row">{{fact.fournisseur}}</th>
+      <th scope="row">{{fact.produit}}</th>
+      <th scope="row">{{fact.TVA}}</th>  
+      <th scope="row">0.0</th>
+    {%endfor%}
+    {% for fact in facturesList %}
+    <tr>
+      <th scope="row">{{fact.date_facturation}}</th>
+      <th scope="row">{{fact.code}}</th>
+      <th scope="row">{{fact.fournisseur}}</th>
+      <th scope="row">{{fact.produit}}</th>
+      <th scope="row">0.0</th>  
+      <th scope="row">{{fact.total}}</th>
+    {%endfor%}
+ 
+    {% comment %} Clients {% endcomment %}
+    {% for fact in facturesClList %}
+    <tr>
+      <th scope="row">{{fact.date_facturation}}</th>
+      <th scope="row">{{fact.code}}</th>
+      <th scope="row">{{fact.client}}</th>
+      <th scope="row">{{fact.produit}}</th>
+      <th scope="row">{{fact.total}}</th>
+      <th scope="row">0.0</th>
+    </tr>
+    {%endfor%} 
+    {% for fact in facturesClList %}
+    <tr>
+      <th scope="row">{{fact.date_facturation}}</th>
+      <th scope="row">{{fact.code}}</th>
+      <th scope="row">{{fact.client}}</th>
+      <th scope="row">{{fact.produit}}</th>
+      <th scope="row">0.0</th>
+      <th scope="row">{{fact.HTaxe}}</th>
+    </tr>
+    {%endfor%} 
+    {% for fact in facturesClList %}
+    <tr>
+      <th scope="row">{{fact.date_facturation}}</th>
+      <th scope="row">{{fact.code}}</th>
+      <th scope="row">{{fact.client}}</th>
+      <th scope="row">{{fact.produit}}</th>
+      <th scope="row">0.0</th>
+      <th scope="row">{{fact.TVA}}</th>
+    </tr>
+    {%endfor%} 
+
+    <tr>
+      <th scope="row">Totals</th>
+      <td colspan="3"></td>
+      <td colspan="1" scope="row">{{Total}}</td>
+      <td colspan="1" scope="row">{{Total5}}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+{% comment %} <div class="alert alert-primary" role="alert"> {% endcomment %}
+</div>
+
+{% endblock %}

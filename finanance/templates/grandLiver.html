@@ -1,0 +1,76 @@
+{% extends "base/base.html" %}
+
+{% block body %}
+<h1>Grand Livre</h1>
+<table class="table table-light">
+  <thead>
+    <tr>
+        <th scope="col">Journal</th>
+      <th scope="col">Date</th>
+      <th scope="col">Comminucation</th>
+      <th scope="col">Partenaire</th>
+      <th scope="col">Device</th>
+      <th scope="col">Deb</th>
+      <th scope="col">Cred</th>
+      <th scope="col">Ballance</th>
+      {% comment %} <th scope="col">Action</th> {% endcomment %}
+    </tr>
+    <tbody>
+  </thead>
+    {% for fc in factCl %}
+    <tr>
+        <th scope="row">{{fc.journal}}</th>
+    <th scope="row">{{fc.date_facturation}}</th>
+      <th scope="row">Extorurn de {{fc.id}}</th>
+      <th scope="row">{{fc.client}}</th>
+      <th scope="row"></th>
+      <th scope="row">{{fc.total}}</th>
+      <th scope="row"></th>
+      <th scope="row">{{fc.total}}</th>
+    </tr>
+    {%endfor%}
+    {% for fr in factFr %}
+    <tr>
+        <th scope="row">{{fr.journal}}</th>
+    <th scope="row">{{fr.date_facturation}}</th>
+      <th scope="row">Extorurn de {{fr.id}}</th>
+      <th scope="row">{{fr.fournisseur}}</th>
+      <th scope="row"></th>
+      <th scope="row"></th>
+      <th scope="row">{{fr.total1}}</th>
+      <th scope="row">{{fr.total1}}</th>
+    </tr>
+    {%endfor%}
+    {% for p in paie %}
+    <tr>
+        <th scope="row">{{p.journal}}</th>
+    <th scope="row">{{p.Date}}</th>
+      <th scope="row">Extorurn de {{p.id}}</th>
+      <th scope="row">{{p.Client}}</th>
+      <th scope="row"></th>
+      <th scope="row">{{p.montant}}</th>
+      <th scope="row"></th>
+      <th scope="row">{{p.montant}}</th>
+    </tr>
+    {%endfor%}
+
+    <tr>
+        <th scope="row">Total</th>
+        <td colspan="4"></td>
+        <td colspan="1">{{balance}}</td>
+        <td colspan="1">{{balance4}}</td>
+        <td colspan="1">{{balance5}}</td>
+      </tr>
+  </tbody>
+  
+</table>
+<table>
+  
+</table>
+
+
+
+{% comment %} <div class="alert alert-primary" role="alert"> {% endcomment %}
+</div>
+
+{% endblock %}

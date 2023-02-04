@@ -1,0 +1,83 @@
+{% extends "base/base.html" %}
+
+{% block body %}
+<h1>Piece Comptables</h1>
+
+<a href="{% url 'create_piece' %}" class="btn btn-success" style="width: max-content;">Create Piece</a>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Num</th>
+      <th scope="col">Partenaire</th>
+      <th scope="col">Reference</th>
+      <th scope="col">Journal</th>
+      <th scope="col">Total</th>
+      <th scope="col">Action</th>
+    </tr>
+    <tbody>
+  </thead>
+    {% comment %} {% for piece in pieces %}
+    <tr>
+    <th scope="row">{{piece.date_comptable}}</th>
+      <th scope="row">{{piece.id}}</th>
+      <th scope="row">{{piece.partenaire}}</th>
+      <th scope="row">{{piece.ref}}</th>
+      <th scope="row">{{piece.journal}}</th>
+      <th scope="row">{{piece.total}}</th>
+      <td><a class="btn btn-primary btn-xs" href="{% url 'piece_update' piece.id  %}"><span class="glyphicon glyphicon-edit">Update</span></a></td>
+      <td><a href="{% url 'delete_piece' piece.id  %}" class="btn btn-danger">Delete</a></td>
+    </tr>
+    {%endfor%} {% endcomment %}
+    {% for fact in facturesList %}
+    <tr>
+      <th scope="row">{{fact.date_facturation}}</th>
+      <th scope="row">{{fact.code}}</th>
+      <th scope="row">{{fact.fournisseur}}</th>
+      <th scope="row"></th>
+      <th scope="row">{{fact.journal}}</th>
+      <th scope="row">{{fact.total}}</th>
+      <td><a class="btn btn-primary btn-xs" href="{% url 'factFr_update' fact.id  %}"><span class="glyphicon glyphicon-edit">Update</span></a></td>
+      <td><a href="{% url 'delete_factFr' fact.id  %}" class="btn btn-danger">Delete</a></td>
+    </tr>
+    {%endfor%}
+    {% for fact in facturesClList %}
+    <tr>
+      <th scope="row">{{fact.date_facturation}}</th>
+      <th scope="row">{{fact.code}}</th>
+      <th scope="row">{{fact.client}}</th>
+      <th scope="row"></th>
+      <th scope="row">{{fact.journal}}</th>
+      <th scope="row">{{fact.total}}</th>
+      <td><a class="btn btn-primary btn-xs" href="{% url 'factCl_update' fact.id  %}"><span class="glyphicon glyphicon-edit">Update</span></a></td>
+      <td><a href="{% url 'delete_factCl' fact.id  %}" class="btn btn-danger">Delete</a></td>
+    </tr>
+    {%endfor%}
+
+    {% for paiement in paiements %}
+    <tr>
+      <th scope="row">{{paiement.Date}}</th>
+      <th scope="row">{{paiement.code}}</th>
+      <th scope="row">{{paiement.Client}}</th>
+      <th scope="row"></th>
+      <th scope="row">{{paiement.journal}}</th>
+      <th scope="row">{{paiement.Montant}}</th>
+      <td><a class="btn btn-primary btn-xs" href="{% url 'pie_update' paiement.id  %}"><span class="glyphicon glyphicon-edit">Update</span></a></td>
+      <td><a href="{% url 'delete_pie' paiement.id  %}" class="btn btn-danger">Cancel</a></td>
+
+    </tr>
+    {%endfor%}
+ 
+    <tr>
+      <th scope="row">Total</th>
+      <td colspan="4"></td>
+      <td colspan="1" scope="row">{{Total}}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+</div>
+
+{% endblock %}

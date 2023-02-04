@@ -1,6 +1,9 @@
 {% extends "base/base.html" %}
 
 {% block body %}
+<h1>Fournisseurs</h1>
+<a href="{% url 'create_fours' %}" class="btn btn-success" style="width: max-content;">Ajouter</a>
+
 <table class="table">
   <thead>
     <tr>
@@ -21,8 +24,8 @@
       <th scope="row">{{fours.mobile}}</th>
       <th scope="row">{{fours.Type}}</th>
       <td><a class="btn btn-primary btn-xs" href="{% url 'fourn_update' fours.id  %}"><span class="glyphicon glyphicon-edit">Update</span></a></td>
-      <td><a href="{% url 'delete_fourn' fours.id  %}" class="btn btn-dark">Cancel</a></td>
-      <td><a href="{% url 'create_fours' %}" class="btn btn-info">Ajouter</a></td>
+      <td><a href="{% url 'delete_fourn' fours.id  %}" class="btn btn-danger">Cancel</a></td>
+
     </tr>
     {%endfor%}
   </tbody>

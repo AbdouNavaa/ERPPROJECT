@@ -57,7 +57,7 @@
                             <img src="{% static 'assets/images/logo-black.png' %}" alt="Porto Logo">
                         </a>
 
-                        <nav class="main-nav ">
+                        <nav class="main-nav">
                             <ul class="menu">
                                 <li class="active">
                                     <a href="/index">Home</a>
@@ -67,6 +67,7 @@
                                             <ul>
                                                 <li><a href="{% url 'clientList'  %}">List of Clients </a></li>
                                                 <li><a href="{% url 'factCl'  %}">Factures</a></li>
+                                                <li><a href="{% url 'paiments'  %}">Paiments</a></li>
                                             </ul>
                                             
                                     <!-- End .megamenu -->
@@ -90,14 +91,14 @@
                                 <li>
                                     <a href="#">Comptabilite</a>
                                     <ul>
-                                        <li><a href="#">Journaux </a></li>
-                                        <li><a href="#">Gestion</a></li>
+                                        <li><a href="pieces">Piece Comptables </a></li>
+                                        <li><a href="ecriture">Ecriture Comptable</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="#">Analyse</a>
                                     <ul>
                                         <li><a href="#">Billan </a></li>
-                                        <li><a href="#">GL</a></li>
+                                        <li><a href="GL">GL</a></li>
                                     </ul>
                                 </li>
                                 </li>
@@ -260,7 +261,7 @@
         <main class="main">
             <div class="home-slider slide-animate owl-carousel owl-theme show-nav-hover nav-big">
                 <div class="home-slide home-slide1 banner d-flex align-items-center">
-                    <img class="slide-bg" src="{% static 'assets/images/demoes/demo3/banners/home/' %}" style="background-color: white;" alt="home banner">
+                    <img class="slide-bg" src="{% static 'assets/images/demoes/demo3/slider/slide1.jpg' %}" style="background-color: #ecc;" alt="home banner">
                     <div class="banner-layer appear-animate" data-animation-name="fadeInUpShorter">
                         <h2>Winter Fashion Trends</h2>
                         <h3 class="text-uppercase mb-0">Get up to 30% off</h3>
@@ -274,7 +275,7 @@
                 <!-- End .home-slide -->
 
                 <div class="home-slide home-slide2 banner d-flex align-items-center">
-                    <img class="slide-bg" src="{% static 'assets/images/demoes/demo3/banners/home/' %}" style="background-color: white;" alt="home banner">
+                    <img class="slide-bg" src="{% static 'assets/images/demoes/demo3/slider/slide2.jpg' %}" style="background-color: #bfcec9;" alt="home banner">
                     <div class="banner-layer appear-animate" data-animation-name="fadeInUpShorter">
                         <h2>New Season Hats </h2>
                         <h3 class="text-uppercase rotated-upto-text mb-0"><small>Up to</small>20% off</h3>
@@ -1130,10 +1131,26 @@
                 <ul class="mobile-menu">
                     <li><a href="{% static 'demo3.html' %}">Home</a></li>
                     <li>
-                        <a href="{% static 'demo3-shop.html' %}">Clients</a>
+                        <a href="{% static 'demo3-shop.html' %}">Categories</a>
                         <ul>
-                            <li><a href=" {% url 'clientList' %}">List</a></li>
-
+                            <li><a href="{% static 'category.html' %}">Full Width Banner</a></li>
+                            <li><a href="{% static 'category-banner-boxed-slider.html' %}">Boxed Slider Banner</a></li>
+                            <li><a href="{% static 'category-banner-boxed-image.html' %}">Boxed Image Banner</a></li>
+                            <li><a href="https://www.portotheme.com/html/porto_ecommerce/category-sidebar-left.html">Left Sidebar</a></li>
+                            <li><a href="{% static 'category-sidebar-right.html">Right Sidebar</a></li>
+                            <li><a href="{% static 'category-off-canvas.html' %}">Off Canvas Filter</a></li>
+                            <li><a href="{% static 'category-horizontal-filter1.html' %}">Horizontal Filter 1</a></li>
+                            <li><a href="{% static 'category-horizontal-filter2.html' %}">Horizontal Filter 2</a></li>
+                            <li><a href="#">List Types</a></li>
+                            <li><a href="{% static 'category-infinite-scroll.html' %}">Ajax Infinite Scroll<span
+                                        class="tip tip-new">New</span></a></li>
+                            <li><a href="{% static 'category.html' %}">3 Columns Products</a></li>
+                            <li><a href="{% static 'category-4col.html' %}">4 Columns Products</a></li>
+                            <li><a href="{% static 'category-5col.html' %}">5 Columns Products</a></li>
+                            <li><a href="{% static 'category-6col.html' %}">6 Columns Products</a></li>
+                            <li><a href="{% static 'category-7col.html' %}">7 Columns Products</a></li>
+                            <li><a href="{% static 'category-8col.html' %}">8 Columns Products</a></li>
+                        </ul>
                     </li>
                     <li>
                         <a href="{% static 'demo3-product.html' %}">Products</a>
