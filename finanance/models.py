@@ -68,6 +68,34 @@ class FactureCl(models.Model):
         tva =(self.quantity*self.produit.prix) * self.Taxe
         return tva
     
+class Notes(models.Model):
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    journal = models.CharField(max_length = 100)
+    produit = models.ForeignKey("Produit", on_delete=models.CASCADE)
+    date_facturation = models.DateField()
+    Taxe = models.FloatField()
+    quantity = models.FloatField()
+    
+    @property
+    def code(self):
+        return "RINV/"+str(self.date_facturation.year)+"/"+str(self.id)
+    
+    def __str__(self):
+        return self.code
+    @property
+    def total(self):
+        Total = -((self.quantity*self.produit.prix) * self.Taxe) - (self.quantity*self.produit.prix)
+        return Total
+    
+    @property
+    def HTaxe(self):
+        hTaxe =self.quantity*self.produit.prix
+        return hTaxe
+    @property
+    def TVA(self):
+        tva =(self.quantity*self.produit.prix) * self.Taxe
+        return tva
+    
 class FactureFr(models.Model):
     fournisseur = models.ForeignKey(Fournisseur, on_delete=models.CASCADE)
     produit = models.ForeignKey("Produit", on_delete=models.CASCADE)
@@ -103,6 +131,8 @@ class FactureFr(models.Model):
 class Produit(models.Model):
     libelle = models.CharField(max_length = 100)
     prix = models.FloatField()
+    Taxes = models.FloatField()
+    Taxesfourn = models.FloatField()
     
 
     def __str__(self):

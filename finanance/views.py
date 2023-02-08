@@ -4,16 +4,43 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.contrib import messages
 # from typing import Type
 from .models import *
-from .forms import ClientForm,FourForm,FactFormCl,FactFormFr,PieceForm,PaiementForm
+from .forms import ClientForm,FourForm,FactFormCl,FactFormFr,PieceForm,PaiementForm,NoteForm,ProductForm
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView,DeleteView,CreateView
 # from . import form
+
+from django.shortcuts import render
+import matplotlib.pyplot as plt
+
+def factures_graphique(request):
+    factures = FactureCl.objects.all()
+    montants = [facture.total for facture in factures]
+    noms_factures = [facture.code for facture in factures]
+    plt.bar(noms_factures, montants)
+    plt.xlabel('Noms de factures')
+    plt.ylabel('Montants totaux')
+    plt.title('Montants totaux des factures')
+    plt.savefig('factures_graphique.png')
+    plt.show()
+    return render(request, 'index.html')
+
+def facturesFr_graphique(request):
+    factures = FactureFr.objects.all()
+    montants = [facture.total for facture in factures]
+    noms_factures = [facture.code for facture in factures]
+    plt.bar(noms_factures, montants)
+    plt.xlabel('Noms de factures')
+    plt.ylabel('Montants totaux')
+    plt.title('Montants totaux des factures')
+    plt.savefig('factures_graphique1.png')
+    plt.show()
+    return render(request, 'index.html')
 
 
 def index(request):
     if request.session.get('username', None):
         x = request.session['username']
-        return render(request, 'finComp/demo3.html', {"name": x})
+        return render(request, 'index.html', {"name": x})
     else:
         return redirect('login')
 
@@ -28,9 +55,30 @@ def produitList(request):
         return redirect('login')
     
 
+# Produit
+def produits(request):
+    
+    produits = Produit.objects.all()
+    return render(request, 'produits.html', {"produits": produits})
 
-    # Clients
+class ProdCreateView(CreateView):
+    model = Produit
+    template_name = 'prod_form.html'
+    fields = '__all__'
+    success_url = reverse_lazy('produits')
+    
+class ProdUpdateView(UpdateView):
+    model = Produit
+    form_class =ProductForm
+    template_name = 'update_prod.html'
+    success_url = reverse_lazy('produits')
 
+class ProdDeleteView(DeleteView):
+    model = Produit
+    template_name = 'prod_confirm_delete.html'
+    success_url = reverse_lazy('produits')  
+
+# Clients
 def clientList(request):
     
     clientList = Client.objects.all()
@@ -100,7 +148,7 @@ def factCl(request):
     
     facturesList = FactureCl.objects.all()
     return render(request, 'factCl.html', {"facturesList": facturesList})
-
+# END
 def factFr(request):
     
     facturesList = FactureFr.objects.all()
@@ -134,6 +182,32 @@ class FactFrDeleteView(DeleteView):
 
 # End Fact
 
+# Notes
+# Ajouter
+class NoteCreateView(CreateView):
+    model = Notes
+    template_name = 'note_form.html'
+    fields = '__all__'
+    success_url = reverse_lazy('notes')
+
+# Affiche
+def notes(request):
+    
+    notes = Notes.objects.all()
+    return render(request, 'notes.html', {"notes": notes})
+# Update
+class NoteUpdateView(UpdateView):
+    model = Notes
+    form_class = NoteForm
+    template_name = 'update_note.html'
+    success_url = reverse_lazy('notes')
+
+# Delete
+class NoteDeleteView(DeleteView):
+    model = Notes
+    template_name = 'note_confirm_delete.html'
+    success_url = reverse_lazy('notes')
+# END
 
 # Piece Journal
 
@@ -143,21 +217,25 @@ def Pieces(request):
     facturesList = FactureFr.objects.all()
     facturesClList = FactureCl.objects.all()
     paiements = Paiements.objects.all()
+    notes = Notes.objects.all()
     # piece =None
     Total1=0
     Total2=0
     Total3=0
+    Total4=0
     Total=0
     for p in paiements:
-                Total1=Total1+p.Montant 
+        Total1=Total1+p.Montant 
     for f2 in facturesClList:
-                Total2=Total2+f2.total
+        Total2=Total2+f2.total
     for f in facturesList:
         Total3=Total3+f.total 
+    for n in notes:
+        Total4=Total4+n.total 
     
-    Total = Total1 + Total2 + Total3
+    Total = Total1 + Total2 + Total3 + Total4
     return render(request, 'pieces.html', {"pieces": pieces,"paiements":paiements,
-                                           "facturesList":facturesList,"facturesClList":facturesClList,'Total':Total})
+                                           "facturesList":facturesList,"notes":notes,"facturesClList":facturesClList,'Total':Total})
 
 class PieceCreateView(CreateView):
     model = PieceCompt

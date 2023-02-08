@@ -5,7 +5,7 @@
 
 <a href="{% url 'create_piece' %}" class="btn btn-success" style="width: max-content;">Create Piece</a>
 
-<table class="table">
+<table class="table" style="font-style: italic; font-weight: bolder;">
   <thead>
     <tr>
       <th scope="col">Date</th>
@@ -14,7 +14,7 @@
       <th scope="col">Reference</th>
       <th scope="col">Journal</th>
       <th scope="col">Total</th>
-      <th scope="col">Action</th>
+      {% comment %} <th scope="col">Action</th> {% endcomment %}
     </tr>
     <tbody>
   </thead>
@@ -30,6 +30,7 @@
       <td><a href="{% url 'delete_piece' piece.id  %}" class="btn btn-danger">Delete</a></td>
     </tr>
     {%endfor%} {% endcomment %}
+    {% comment %} Fact Four {% endcomment %}
     {% for fact in facturesList %}
     <tr>
       <th scope="row">{{fact.date_facturation}}</th>
@@ -38,10 +39,9 @@
       <th scope="row"></th>
       <th scope="row">{{fact.journal}}</th>
       <th scope="row">{{fact.total}}</th>
-      <td><a class="btn btn-primary btn-xs" href="{% url 'factFr_update' fact.id  %}"><span class="glyphicon glyphicon-edit">Update</span></a></td>
-      <td><a href="{% url 'delete_factFr' fact.id  %}" class="btn btn-danger">Delete</a></td>
     </tr>
     {%endfor%}
+ {% comment %} Facts Clients {% endcomment %}
     {% for fact in facturesClList %}
     <tr>
       <th scope="row">{{fact.date_facturation}}</th>
@@ -50,8 +50,17 @@
       <th scope="row"></th>
       <th scope="row">{{fact.journal}}</th>
       <th scope="row">{{fact.total}}</th>
-      <td><a class="btn btn-primary btn-xs" href="{% url 'factCl_update' fact.id  %}"><span class="glyphicon glyphicon-edit">Update</span></a></td>
-      <td><a href="{% url 'delete_factCl' fact.id  %}" class="btn btn-danger">Delete</a></td>
+    </tr>
+    {%endfor%}
+
+    {% for note in notes %}
+    <tr>
+      <th scope="row">{{note.date_facturation}}</th>
+      <th scope="row">{{note.code}}</th>
+      <th scope="row">{{note.client}}</th>
+      <th scope="row"></th>
+      <th scope="row">{{note.journal}}</th>
+      <th scope="row">{{note.total}}</th>
     </tr>
     {%endfor%}
 
@@ -63,13 +72,11 @@
       <th scope="row"></th>
       <th scope="row">{{paiement.journal}}</th>
       <th scope="row">{{paiement.Montant}}</th>
-      <td><a class="btn btn-primary btn-xs" href="{% url 'pie_update' paiement.id  %}"><span class="glyphicon glyphicon-edit">Update</span></a></td>
-      <td><a href="{% url 'delete_pie' paiement.id  %}" class="btn btn-danger">Cancel</a></td>
 
     </tr>
     {%endfor%}
  
-    <tr>
+    <tr style="background-color: black ;font-weight: bolder; color: white;">
       <th scope="row">Total</th>
       <td colspan="4"></td>
       <td colspan="1" scope="row">{{Total}}</td>

@@ -29,11 +29,15 @@ class TypeForm(forms.ModelForm):
 class ProductForm(forms.ModelForm):
     class Meta:
         model=models.Produit
-        fields=['libelle','prix']
+        fields='__all__'
 
 class FactFormCl(forms.ModelForm):
     class Meta:
         model=models.FactureCl
+        fields='__all__'
+class NoteForm(forms.ModelForm):
+    class Meta:
+        model=models.Notes
         fields='__all__'
 class FactFormFr(forms.ModelForm):
     class Meta:

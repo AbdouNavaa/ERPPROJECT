@@ -21,11 +21,22 @@ urlpatterns = [
     path('factCl/', views.factCl, name='factCl'),
     path('create_fact/', views.FactClCreateView.as_view(), name='create_factCl'),
    
+# Note
+    path('note/<int:pk>/update/', views.NoteUpdateView.as_view(), name='note_update'),
+    path('note/<int:pk>/delete/', views.NoteDeleteView.as_view(), name='delete_note'),
+    path('notes/', views.notes, name='notes'),
+    path('create_note/', views.NoteCreateView.as_view(), name='create_note'),
+   
 # Client
     path('client/<int:pk>/update/', views.ClientUpdateView.as_view(), name='client_update'),
     path('client/<int:pk>/delete/', views.ClientDeleteView.as_view(), name='delete_client'),
     path('clientList/', views.clientList, name='clientList'),
     path('create_client/', views.ClientCreateView.as_view(), name='create_client'),
+# Prod
+    path('prod/<int:pk>/update/', views.ProdUpdateView.as_view(), name='prod_update'),
+    path('prod/<int:pk>/delete/', views.ProdDeleteView.as_view(), name='delete_prod'),
+    path('produits/', views.produits, name='produits'),
+    path('create_prod/', views.ProdCreateView.as_view(), name='create_prod'),
    
 # Fournisseurs
     path('fourn/<int:pk>/update/', views.FournUpdateView.as_view(), name='fourn_update'),
@@ -49,6 +60,10 @@ urlpatterns = [
     path('piece/<int:pk>/delete/', views.PieceDeleteView.as_view(), name='delete_piece'),
     path('pieces/', views.Pieces, name='pieces'),
     path('create_piece/', views.PieceCreateView.as_view(), name='create_piece'),
+    
+# Graph
+    path('factures_graphique/', views.factures_graphique, name='factures_graphique'),
+    path('facturesFr_graphique/', views.facturesFr_graphique, name='facturesFr_graphique'),
 
 ] 
 # + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

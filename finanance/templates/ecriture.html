@@ -5,7 +5,7 @@
 
 {% comment %} <a href="{% url 'create_piece' %}" class="btn btn-success" style="width: max-content;">Ajouter</a> {% endcomment %}
 
-<table class="table">
+<table class="table" style="font-style: italic; font-weight: bolder;" >
   <thead>
     <tr>
       <th scope="col">Date</th>
@@ -79,8 +79,8 @@
     </tr>
     {%endfor%} 
 
-    <tr>
-      <th scope="row">Totals</th>
+    <tr style="background-color: black ;font-weight: bolder; color: white;">
+      <th scope="row" >Totals</th>
       <td colspan="3"></td>
       <td colspan="1" scope="row">{{Total}}</td>
       <td colspan="1" scope="row">{{Total5}}</td>

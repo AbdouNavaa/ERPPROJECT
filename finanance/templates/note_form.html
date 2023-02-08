@@ -1,12 +1,10 @@
 {% extends "base/base.html" %}
 
 {% block body %}
-  <h1>Create a new Provider</h1>
+  <h1>Creer une nouvelle Note</h1>
   <form method="post" class="form-content">
     {% csrf_token %}
-    <table>
-    {{ form.as_table }}
-    </table>
+    {{ form.as_p }}
     <input type="submit" value="Create" class="btn btn-dark">
   </form>
 {% endblock %}
