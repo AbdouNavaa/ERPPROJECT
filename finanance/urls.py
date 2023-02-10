@@ -46,6 +46,7 @@ urlpatterns = [
 
 
     path('GL/', views.GL, name='GL'),
+    path('journaux/', views.Journaux, name='journaux'),
     
 # Paiements
     path('paiments/', views.Paiments, name='paiments'),

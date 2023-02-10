@@ -2,9 +2,11 @@
 
 {% block body %}
   <h1>Create a new facture</h1>
-  <form method="post">
+  <form method="post" class="form-control form-control-lg">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Create" class="btn btn-success">
+    <table class="table ">
+      {{ form.as_table }}
+      </table>
+      <input type="submit" style="margin-left: 42%; padding-left: 8%; padding-right: 8%;" value="Create" class="btn btn-success">
   </form>
 {% endblock %}

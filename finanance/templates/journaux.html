@@ -1,0 +1,30 @@
+{% extends "base/base.html" %}
+
+{% block body %}
+<h1>journaus</h1>
+
+<table class="table">
+  <thead>
+    <tr style="background-color: black ;font-weight: bolder; color: white;">
+        <th scope="col">Name</th>
+        <th scope="col">Type</th>
+      <th scope="col">Code</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for journau in journaux %}
+    <tr>
+      <th scope="row">{{journau.name}}</th>
+      <th scope="row">{{journau.type}}</th>
+      <th scope="row">{{journau.code}}</th>
+
+    </tr>
+    {%endfor%}
+  </tbody>
+</table>
+
+
+{% comment %} <div class="alert alert-primary" role="alert"> {% endcomment %}
+</div>
+
+{% endblock %}

@@ -26,7 +26,7 @@ def factures_graphique(request):
 
 def facturesFr_graphique(request):
     factures = FactureFr.objects.all()
-    montants = [facture.total for facture in factures]
+    montants = [facture.total1 for facture in factures]
     noms_factures = [facture.code for facture in factures]
     plt.bar(noms_factures, montants)
     plt.xlabel('Noms de factures')
@@ -279,7 +279,7 @@ def EcritureComp(request):
                 Total2= Total2 + f2.total
     for f in facturesList:
         Total3=Total3+f.HTaxe + f.TVA
-        Total4 = Total4 + f.total 
+        Total4 = Total4 + f.total1 
     # for p in paiements:
     #     Total2=Total2+p. 
     
@@ -295,32 +295,36 @@ class EcritUpdateView(UpdateView):
 # End Ecriture
 def GL(request):
     # pieces = None
+
+    factCl = FactureCl.objects.all()
+    factFr = FactureFr.objects.all()
+    paie = Paiements.objects.all()
+    note = Notes.objects.all()
+
     balance1 = 0
     balance2 = 0
     balance3 = 0
     balance4 = 0
     balance5 = 0
+    balance6 = 0
+    balance7 = 0
     balance = 0
-    factCl = FactureCl.objects.all()
-    factFr = FactureFr.objects.all()
-    paie = Paiements.objects.all()
-    # for p in pieces:
-    #         balance1=balance1+p.deb
-    #         balance2=balance2+p.cred
-    #         balance=balance+p.deb -p.cred
-    
     for f in factCl:
                 balance1=balance1+f.total
-                # Total2= Total2 + f2.total
     for f in factFr:
         balance2=balance2-f.total
-        # Total4 = Total4 + f.total 
+
     for p in paie:
-        balance3=balance3+p.montant
+        balance3=balance3+p.Deb
+        balance6=balance6-p.Cred
+    for n in note:
+        balance7=balance7-n.total
     balance = balance + balance1 +balance3
-    balance4 = balance4 + balance2
-    balance5 = balance5 + balance - balance4
-    return render(request, 'grandLiver.html', {"paie": paie,"factCl": factCl,"factFr": factFr, 'balance':balance,'balance4':balance4,'balance5':balance5})
+    balance4 = balance4 + balance2 + balance6
+    balance5 = balance5 + balance + balance4
+    
+    bal = -balance4
+    return render(request, 'grandLiver.html', {"paie": paie,"factCl": factCl,"factFr": factFr, 'balance':balance,'bal':bal,'balance5':balance5})
 
 
 
@@ -348,7 +352,11 @@ class PaiementDeleteView(DeleteView):
     template_name = 'pie_confirm_delete.html'
     success_url = reverse_lazy('paiments')  
         
-
+# Affiche
+def Journaux(request):
+    
+    journaux = Journal.objects.all()
+    return render(request, 'journaux.html', {"journaux": journaux})
 
 
 # Logs

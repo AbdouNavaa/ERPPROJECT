@@ -4,7 +4,9 @@
   <h1>Create a new Paiment</h1>
   <form method="post" class="form-content">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Create" class="btn btn-dark">
+    <table class="table  form-control-lg">
+      {{ form.as_table }}
+      </table>
+      <input type="submit" style="margin-left: 30%; padding-left: 8%; padding-right: 8%;" value="Create" class="btn btn-success">
   </form>
 {% endblock %}

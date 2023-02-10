@@ -2,12 +2,13 @@
 
 {% block body %}
 <h1>Grand Livre</h1>
-<table class="table table-light">
+<table class="table">
   <thead>
-    <tr>
+    <tr style="background-color: black ;font-weight: bolder; color: white;">
         <th scope="col">Journal</th>
       <th scope="col">Date</th>
-      <th scope="col">Comminucation</th>
+      <th scope="col">Code</th>
+      {% comment %} <th scope="col">Comminucation</th> {% endcomment %}
       <th scope="col">Partenaire</th>
       <th scope="col">Device</th>
       <th scope="col">Deb</th>
@@ -21,7 +22,8 @@
     <tr>
         <th scope="row">{{fc.journal}}</th>
     <th scope="row">{{fc.date_facturation}}</th>
-      <th scope="row">Extorurn de {{fc.id}}</th>
+      <th scope="row">{{fc.code}}</th>
+      {% comment %} <th scope="row">Extorurn de {{fc.id}}</th> {% endcomment %}
       <th scope="row">{{fc.client}}</th>
       <th scope="row"></th>
       <th scope="row">{{fc.total}}</th>
@@ -33,11 +35,11 @@
     <tr>
         <th scope="row">{{fr.journal}}</th>
     <th scope="row">{{fr.date_facturation}}</th>
-      <th scope="row">Extorurn de {{fr.id}}</th>
+      <th scope="row">{{fr.code}}</th>
       <th scope="row">{{fr.fournisseur}}</th>
       <th scope="row"></th>
       <th scope="row"></th>
-      <th scope="row">{{fr.total1}}</th>
+      <th scope="row">{{fr.total}}</th>
       <th scope="row">{{fr.total1}}</th>
     </tr>
     {%endfor%}
@@ -45,21 +47,22 @@
     <tr>
         <th scope="row">{{p.journal}}</th>
     <th scope="row">{{p.Date}}</th>
-      <th scope="row">Extorurn de {{p.id}}</th>
+      <th scope="row">{{p.code}}</th>
       <th scope="row">{{p.Client}}</th>
       <th scope="row"></th>
-      <th scope="row">{{p.montant}}</th>
-      <th scope="row"></th>
-      <th scope="row">{{p.montant}}</th>
+      <th scope="row">{{p.Deb}}</th>
+      <th scope="row">{{p.Cred}}</th>
+      <th scope="row">{{p.Montant}}</th>
     </tr>
     {%endfor%}
 
-    <tr>
-        <th scope="row" style="color: white; background-color: black; font-style: italic; font-weight: bolder;">Total</th>
-        <td style="background-color: black;" colspan="4"></td>
-        <td style="background-color: black; font-style: italic; font-weight: bolder; color: white;" colspan="1">{{balance}}</td>
-        <td style="background-color: black; font-style: italic; font-weight: bolder;color: white;" colspan="1">{{balance4}}</td>
-        <td style="background-color: black; font-style: italic; font-weight: bolder;color: white;" colspan="1">{{balance5}}</td>
+
+    <tr style="color: white; background-color: black; font-style: italic; font-weight: bolder;">
+        <th scope="row" >Total</th>
+        <td colspan="4"></td>
+        <td colspan="1">{{balance}}</td>
+        <td colspan="1">{{bal}}</td>
+        <td colspan="1">{{balance5}}</td>
       </tr>
   </tbody>
   

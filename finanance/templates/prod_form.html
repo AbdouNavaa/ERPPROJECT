@@ -2,9 +2,12 @@
 
 {% block body %}
   <h1>Create a new Product</h1>
-  <form method="post" class="form-content">
+  <form method="post" class="form-control form-control-lg">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Create" class="btn btn-dark">
+    <table class="table ">
+      {{ form.as_table }}
+      </table>
+      <input type="submit" style="margin-left: 34%; padding-left: 9%; padding-right: 9%;" value="Create" class="btn btn-success">
+  </form>
   </form>
 {% endblock %}

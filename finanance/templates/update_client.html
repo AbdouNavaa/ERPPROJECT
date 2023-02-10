@@ -2,10 +2,13 @@
     {% extends "base/base.html" %}
 
     {% block body %}
-    <form method="post" class="form-control form-control-lg">
+  <h1>Update Client</h1>
+  <form method="post" class="form-control form-control-lg">
       {% csrf_token %}
-      {{ form.as_p }}
-      <input type="submit" value="Save" class="btn btn-outline-success btn-lg">
+      <table class="table">
+        {{ form.as_table }}
+        </table>
+      <input type="submit" style="margin-left: 28%; padding-left: 10%; padding-right: 10%;" value="Save" class="btn btn-dark">
     </form>
     </div>
     

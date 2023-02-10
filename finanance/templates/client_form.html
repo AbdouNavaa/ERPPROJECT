@@ -2,11 +2,11 @@
 
 {% block body %}
   <h1>Create a new client</h1>
-  <form method="post" class="form-control">
-    <div class="form-group">
-      {% csrf_token %}
-      {{ form.as_p }}
-    </div>
-    <input type="submit" value="Create" class="btn btn-success">
+  <form method="post" class="form-control form-control-lg">
+    {% csrf_token %}
+    <table class="table ">
+      {{ form.as_table }}
+      </table>
+      <input type="submit" style="margin-left: 28%; padding-left: 9%; padding-right: 8%;" value="Create" class="btn btn-success">
   </form>
 {% endblock %}

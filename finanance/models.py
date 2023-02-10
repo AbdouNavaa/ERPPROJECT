@@ -14,8 +14,6 @@ class User(models.Model):
     
 class Client(models.Model):
     Name = models.CharField(max_length=40,null=False)
-    # LastName = models.CharField(max_length=40)
-    # profile_pic= models.ImageField(upload_to='profile_pic/CustomerProfilePic/',null=True,blank=True)
     address = models.CharField(max_length=40,)
     mobile = models.CharField(max_length=20,null=False)
     Type =models.ForeignKey("Type",on_delete=models.CASCADE)
@@ -31,8 +29,6 @@ class Type(models.Model):
     
 class Fournisseur(models.Model):
     Name = models.CharField(max_length=40)
-    # LastName = models.CharField(max_length=40)
-    # profile_pic= models.ImageField(upload_to='profile_pic/CustomerProfilePic/',null=True,blank=True)
     address = models.CharField(max_length=40)
     mobile = models.CharField(max_length=20,null=False)
     Type =models.ForeignKey(Type,on_delete=models.CASCADE)
@@ -42,22 +38,18 @@ class Fournisseur(models.Model):
 
 class FactureCl(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    journal = models.CharField(max_length = 100)
+    journal = models.ForeignKey("Journal", on_delete=models.CASCADE)
     produit = models.ForeignKey("Produit", on_delete=models.CASCADE)
     date_facturation = models.DateField()
-    Taxe = models.FloatField()
     quantity = models.FloatField()
     
     @property
     def code(self):
-        return "INV/"+str(self.date_facturation.year)+"/"+str(self.id)
+        return str(self.journal.code)+str(self.date_facturation.year)+"/"+str(self.id)
+
     
     def __str__(self):
         return self.code
-    @property
-    def total(self):
-        Total = ((self.quantity*self.produit.prix) * self.Taxe) + (self.quantity*self.produit.prix)
-        return Total
     
     @property
     def HTaxe(self):
@@ -65,69 +57,72 @@ class FactureCl(models.Model):
         return hTaxe
     @property
     def TVA(self):
-        tva =(self.quantity*self.produit.prix) * self.Taxe
+        tva =(self.quantity*self.produit.prix) * self.produit.Taxes
         return tva
+    @property
+    def total(self):
+        Total = self.TVA + self.HTaxe
+        return Total
     
 class Notes(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    journal = models.CharField(max_length = 100)
+    journal = models.ForeignKey("Journal", on_delete=models.CASCADE)
     produit = models.ForeignKey("Produit", on_delete=models.CASCADE)
     date_facturation = models.DateField()
-    Taxe = models.FloatField()
     quantity = models.FloatField()
     
     @property
     def code(self):
-        return "RINV/"+str(self.date_facturation.year)+"/"+str(self.id)
+        return "R"+str(self.journal.code)+str(self.date_facturation.year)+"/"+str(self.id)
+
     
     def __str__(self):
         return self.code
-    @property
-    def total(self):
-        Total = -((self.quantity*self.produit.prix) * self.Taxe) - (self.quantity*self.produit.prix)
-        return Total
-    
     @property
     def HTaxe(self):
         hTaxe =self.quantity*self.produit.prix
         return hTaxe
     @property
     def TVA(self):
-        tva =(self.quantity*self.produit.prix) * self.Taxe
+        tva =(self.quantity*self.produit.prix) * self.produit.Taxes
         return tva
+    @property
+    def total(self):
+        Total = -(self.TVA - self.HTaxe)
+        return Total
+    
     
 class FactureFr(models.Model):
     fournisseur = models.ForeignKey(Fournisseur, on_delete=models.CASCADE)
     produit = models.ForeignKey("Produit", on_delete=models.CASCADE)
-    journal = models.CharField(max_length = 100)
+    journal =models.ForeignKey("Journal", on_delete=models.CASCADE)
     date_facturation = models.DateField()
-    Taxe = models.FloatField()
+    # Taxe = models.FloatField()
     quantity = models.FloatField()
     
     @property
     def code(self):
-        return "BILL/"+str(self.date_facturation.year)+"/"+str(self.id)
+        return str(self.journal.code)+str(self.date_facturation.year)+"/"+str(self.id)
     def __str__(self):
         return self.code
     @property
     def total(self):
-        Total = -((self.quantity*self.produit.prix) * self.Taxe) - (self.quantity*self.produit.prix)
+        Total = self.TVA + self.HTaxe
         return Total
-    @property
-    def total1(self):
-        Total1 = 0
-        Total = -((self.quantity*self.produit.prix) * self.Taxe) - (self.quantity*self.produit.prix)
-        Total1 = Total1 - Total
-        return Total1
+    
     @property
     def HTaxe(self):
         HTaxe =self.quantity*self.produit.prix
         return HTaxe
     @property
     def TVA(self):
-        tva =(self.quantity*self.produit.prix) * self.Taxe
+        tva =(self.quantity*self.produit.prix) * self.produit.Taxes
         return tva
-    
+    @property
+    def total1(self):
+        Total1 = 0
+        Total1 = Total1 - self.total
+        return Total1
 class Produit(models.Model):
     libelle = models.CharField(max_length = 100)
     prix = models.FloatField()
@@ -140,10 +135,11 @@ class Produit(models.Model):
 
 class Journal(models.Model):
     name=models.CharField(max_length=40)
+    type=models.CharField(max_length=40,null=True)
+    code=models.CharField(max_length=40, null=True)
     def __str__(self):
         return self.name   
-class JournalPaiement(models.Model):
-    name=models.CharField(max_length=40)
+
     
     def __str__(self):
         return self.name
@@ -166,7 +162,7 @@ class Paiements(models.Model):
     Client = models.ForeignKey(Client, on_delete=models.CASCADE)
     Date = models.DateField()
     montant = models.FloatField()
-    journal = models.ForeignKey(JournalPaiement, on_delete=models.CASCADE)
+    journal = models.ForeignKey(Journal, on_delete=models.CASCADE)
     Mode = models.CharField(max_length=100)
     Type_CHOICES = [
         ('E', 'Envoyer'),
@@ -182,10 +178,22 @@ class Paiements(models.Model):
         else:
             Montant =self.montant
         return Montant
+    @property
+    def Deb(self):
+        Montant =0
+        if self.Type in self.Type_CHOICES[1]:
+            Montant =self.montant
+        return Montant
+    @property
+    def Cred(self):
+        Montant =0
+        if self.Type in self.Type_CHOICES[0]:
+            Montant =self.montant
+        return Montant
     
     @property
     def code(self):
-        return "P"+str(self.journal)+str(self.Date.year)+"/"+str(self.id)
+        return str(self.journal.code)+str(self.Date.year)+"/"+str(self.id)
     def __str__(self):
         return self.code
     #  = models.BooleanField(choices=)
