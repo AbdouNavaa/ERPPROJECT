@@ -5,54 +5,83 @@ from . import models
 
 class UserForm(forms.ModelForm):
     class Meta:
-        model=User
-        fields=['username','email','password']
+        model = User
+        fields = ['username', 'email', 'password']
         widgets = {
-        'password': forms.PasswordInput()
+            'password': forms.PasswordInput()
         }
-        
+
+
 class ClientForm(forms.ModelForm):
     class Meta:
-        model=models.Client
-        fields=['Name','address','mobile','Type']
+        model = models.Client
+        fields = ['Name', 'address', 'mobile', 'Type']
+
+
+class deviseForm(forms.ModelForm):
+    class Meta:
+        model = models.Devises
+        fields = '__all__'
+
+
+class taxeForm(forms.ModelForm):
+    class Meta:
+        model = models.Taxes
+        fields = '__all__'
+
+
+class immobForm(forms.ModelForm):
+    class Meta:
+        model = models.Immobe
+        fields = '__all__'
+
 
 class FourForm(forms.ModelForm):
     class Meta:
-        model=models.Client
-        fields='__all__'
-        
+        model = models.Client
+        fields = '__all__'
+
+
 class TypeForm(forms.ModelForm):
     class Meta:
-        model=models.Type
-        fields=['name']
+        model = models.Type
+        fields = ['name']
+
 
 class ProductForm(forms.ModelForm):
     class Meta:
-        model=models.Produit
-        fields='__all__'
+        model = models.Produit
+        fields = '__all__'
+
 
 class FactFormCl(forms.ModelForm):
     class Meta:
-        model=models.FactureCl
-        fields='__all__'
+        model = models.FactureCl
+        fields = '__all__'
+
+
 class NoteForm(forms.ModelForm):
     class Meta:
-        model=models.Notes
-        fields='__all__'
+        model = models.Notes
+        fields = '__all__'
+
+
 class FactFormFr(forms.ModelForm):
     class Meta:
-        model=models.FactureFr
-        fields='__all__'
+        model = models.FactureFr
+        fields = '__all__'
 
-        
+
 class PieceForm(forms.ModelForm):
     class Meta:
-        model=models.PieceCompt
-        fields='__all__'
+        model = models.PieceCompt
+        fields = '__all__'
+
+
 class PaiementForm(forms.ModelForm):
     class Meta:
-        model=models.Paiements
-        fields='__all__'
+        model = models.Paiements
+        fields = '__all__'
 # #address of shipment
 # class AddressForm(forms.Form):
 #     Email = forms.EmailField()

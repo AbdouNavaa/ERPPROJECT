@@ -1,0 +1,64 @@
+{% extends "base/base.html" %}
+
+{% block body %}
+
+
+<table class="table">
+<tr> 
+    <td colspan="7"></td>
+<td><h4>Balance</h4></td>
+</tr>
+<tr style="color: blue; background-color: white; font-style: italic; font-weight: bolder;">
+
+    <td colspan="7"><h4>Revenus</h4></td>
+    <td >{{totalCR}}</td>
+</tr>
+<tr><td colspan="8" style="padding-left: 3%;"><h5>Bénéfice brut</h5></td></tr>
+<tr>
+
+    <td colspan="8" style="padding-left: 5%;"><h4>	
+Résultat Opérationnel</h4>
+</tr>
+   <tr >
+    <td colspan="7" style="padding-left: 7%;">400000 Product Sales        </td>
+    <td colspan="1">{{TotalRev}}</td>
+   </tr>
+
+   
+   <tr style="color: red; background-color: white; font-style: italic; font-weight: bolder;">
+    <td colspan="7" style="padding-left: 5%;">Total Résultat Opérationnel</td>
+    <td colspan="1">{{TotalRev}}</td>
+   </tr>
+   
+   
+   <tr style="color: red; background-color: white; font-style: italic; font-weight: bolder;">
+       <td colspan="7"> Total Bénéfice brut  </td>
+       <td colspan="1">{{TotalRev}}</td>
+    </tr>
+    <tr style="color: red; background-color: white; font-style: italic; font-weight: bolder;">
+     <td colspan="7">Total Revenus</td>
+     <td colspan="1">{{TotalRev}}</td>
+    </tr>
+
+    <!-- Dépenses -->
+<tr><td colspan="8"><h2>Dépenses</h2></td></tr>
+<tr>
+    <td colspan="8" style="padding-left: 5%;"><h4> Dépenses</h4>
+</tr>
+   <tr >
+    <td colspan="7" style="padding-left: 7%;"> 600000 Expenses   </td>
+    <td colspan="1">{{totalEX}}</td>
+   </tr>
+
+   
+   <tr style="color: red; background-color: white; font-style: italic; font-weight: bolder;">
+    <td colspan="7" style="padding-left: 5%;">Total Dépenses</td>
+    <td colspan="1">{{totalEX}}</td>
+   </tr>
+   <tr style="color: red; background-color: white; font-style: italic; font-weight: bolder;">
+    <td colspan="7" style="padding-left: 5%;">Total Dépenses</td>
+    <td colspan="1">{{totalEX}}</td>
+   </tr>
+   
+
+{% endblock %}

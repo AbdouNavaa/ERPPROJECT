@@ -1,0 +1,10 @@
+{% extends "base/base.html" %} {% block body %}
+<h1>Create a new immobilisations</h1>
+<form method="post" class="form-content">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Create" class="btn btn-dark">
+</form>
+{% endblock %}

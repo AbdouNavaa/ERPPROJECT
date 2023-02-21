@@ -1,0 +1,35 @@
+{% extends "base/base.html" %} {% block body %}
+<h1>devises</h1>
+<a href="{% url 'create_devise' %}" class="btn btn-success" style="width: max-content;">Ajouter</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">devise</th>
+            <th scope="col">symbol</th>
+            <th scope="col">nom</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for devise in devise %}
+        <tr>
+            <th scope="row">{{devise.id}}</th>
+            <th scope="row">{{devise.dev}}</th>
+            <th scope="row">{{devise.symbol}}</th>
+            <th scope="row">{{devise.nom}}</th>
+            <td><a class="btn btn-primary btn-xs" href="{% url 'devise_update' devise.id  %}"><span class="glyphicon glyphicon-edit">Update</span></a></td>
+            <td><a href="{% url 'delete_devise' devise.id  %}" class="btn btn-danger">Cancel</a></td>
+
+        </tr>
+        {%endfor%}
+    </tbody>
+</table>
+
+
+{% comment %}
+<div class="alert alert-primary" role="alert"> {% endcomment %}
+</div>
+
+{% endblock %}

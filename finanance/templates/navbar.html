@@ -1,123 +1,140 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-.dropbtn {
-  background-color: dark;
-  color: white;
-  padding: 16px;
-  font-size: 20px;
-  border: none;
-}
-
-.dropdown {
-  font-style: italic;
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  font-size: 15px;
-  font-style: italic;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-.nav-link {
-  font-style: italic;
-  color: white;
-  font-size: 20px;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-.nav-link:hover {
-  color: white;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown-content a:hover {background-color: #ddd;}
-
-.dropdown:hover .dropdown-content {display: block;}
-
-.dropdown:hover .dropbtn {background-color: black;}
-.navbar{
-  padding-left: 0%;
-}
-</style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .dropbtn {
+            background-color: dark;
+            color: white;
+            padding: 16px;
+            font-size: 20px;
+            border: none;
+        }
+        
+        .dropdown {
+            font-style: italic;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            font-size: 15px;
+            font-style: italic;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+        
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .nav-link {
+            font-style: italic;
+            color: white;
+            font-size: 20px;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .nav-link:hover {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .dropdown:hover .dropbtn {
+            background-color: black;
+        }
+        
+        .navbar {
+            padding-left: 0%;
+        }
+    </style>
 </head>
+
 <body>
 
-<nav class="navbar navbar-expand-end navbar-dark bg-dark">
-  
-<a class="nav-link" href="/index">Home</a>
+    <nav class="navbar navbar-expand-end navbar-dark bg-dark">
 
-<div class="dropdown">
-  <div class="dropbtn">Clients</div>
-  <div class="dropdown-content">
-          <a href="{% url 'factCl'  %}">Factures</a>
-          <a href="{% url 'notes'  %}">Notes de credit</a>
-          <a href="{% url 'paiments'  %}">Paiments</a>
-          <a href="{% url 'produits'  %}">Produits</a>
-          <a href="{% url 'clientList'  %}">Clients </a>
-  </div>
-</div>
-<div class="dropdown">
-  <div class="dropbtn">Fournisseurs</div>
-  <div class="dropdown-content">
-          <a href="{% url 'factFr'  %}">Factures</a>
-          <a href="{% url 'produits'  %}">Produits</a>
-            <a href="{% url 'foursList'  %}">Fournisseurs </a>
-  </div>
-</div>
-<div class="dropdown">
-  <div class="dropbtn">Comptabilite</div>
-  <div class="dropdown-content">
-        <a href="{% url 'pieces'  %}">Piece Comptables </a>
-        <a href="{% url 'ecriture'  %}">Ecriture Comptable</a>
-  </div>
-</div>
-<div class="dropdown">
-  <div class="dropbtn">Analyse</div>
-  <div class="dropdown-content">
-          <a href="#">Billan </a>
-          <a href="{% url 'GL'  %}">GL</a>
-  </div>
-</div>
-<div class="dropdown">
-  <div class="dropbtn">Graph</div>
-  <div class="dropdown-content">
-          <a href="/factures_graphique">GCL </a> 
-          <a href="/facturesFr_graphique">GFR </a> 
-  </div>
-</div>
-<div class="dropdown">
-  <div class="dropbtn">Configuration</div>
-  <div class="dropdown-content">
-          <a href="/journaux">Journaux </a>
-  </div>
-</div>
+        <a class="nav-link" href="/index">Comptabilité</a>
+
+        <div class="dropdown">
+            <div class="dropbtn">Clients</div>
+            <div class="dropdown-content">
+                <a href="{% url 'factCl'  %}">Factures</a>
+                <a href="{% url 'notes'  %}">Notes de credit</a>
+                <a href="{% url 'paiments'  %}">Paiments</a>
+                <a href="{% url 'produits'  %}">Produits</a>
+                <a href="{% url 'clientList'  %}">Clients </a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <div class="dropbtn">Fournisseurs</div>
+            <div class="dropdown-content">
+                <a href="{% url 'factFr'  %}">Factures</a>
+                <a href="{% url 'produits'  %}">Produits</a>
+                <a href="{% url 'foursList'  %}">Fournisseurs </a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <div class="dropbtn">Comptabilite</div>
+            <div class="dropdown-content">
+                <a href="{% url 'pieces'  %}">Piece Comptables </a>
+                <a href="{% url 'ecriture'  %}">Ecriture Comptable</a>
+                <a href="{% url 'immob'  %}">immobilisations</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <div class="dropbtn">Analyse</div>
+            <div class="dropdown-content">
+                <a href="{% url 'Bilan'  %}">Billan </a>
+                <a href="{% url 'ComptRes'  %}">Compte de Resultat </a>
+                <a href="{% url 'GL'  %}">GL</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <div class="dropbtn">Configuration</div>
+            <div class="dropdown-content">
+                <a href="/journaux">Journaux </a>
+                <a href="{% url 'devise' %}">Devises </a>
+                <a href="{% url 'taxe' %}">Taxes</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <div class="dropbtn">Graph</div>
+            <div class="dropdown-content">
+                <a href="/factures_graphique">GCL </a>
+                <a href="/facturesFr_graphique">GFR </a>
+            </div>
+        </div>
 
 
-    <a class="nav-link" href="/logout">Logout</a>
-</nav>
+        <a class="nav-link" href="/logout">Logout</a>
+    </nav>
 
-<!-- <div class="dropdown">
+    <!-- <div class="dropdown">
   
 </div> -->
 
 </body>
+
 </html>

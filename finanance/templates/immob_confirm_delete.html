@@ -1,0 +1,8 @@
+{% extends "base/base.html" %} {% block body %}
+<h1>Are you sure you want to delete this immobolisations?</h1>
+<form method="post">
+    {% csrf_token %}
+    <input type="submit" value="Confirm" class="btn btn-danger">
+    <a href="{% url 'immob' %}" class="btn btn-dark">Cancel</a>
+</form>
+{% endblock %}
