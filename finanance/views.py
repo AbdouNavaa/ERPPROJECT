@@ -4,7 +4,7 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.contrib import messages
 # from typing import Type
 from .models import *
-from .forms import ClientForm, FourForm, FactFormCl, FactFormFr, PieceForm, PaiementForm, NoteForm, ProductForm, deviseForm, immobForm, taxeForm
+from .forms import ClientForm, FourForm, FactFormCl, FactFormFr, PieceForm, PaiementForm, NoteForm, ProductForm, deviseForm, immobForm, planForm, taxeForm
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, DeleteView, CreateView
 # from . import form
@@ -792,3 +792,30 @@ class immobDeleteView(DeleteView):
     model = Immobe
     template_name = 'immob_confirm_delete.html'
     success_url = reverse_lazy('immob')
+
+
+# plan
+def plan(request):
+
+    plan = Plan.objects.all()
+    return render(request, 'plan.html', {"plan": plan})
+
+
+class planCreateView(CreateView):
+    model = Plan
+    template_name = 'plan_form.html'
+    fields = '__all__'
+    success_url = reverse_lazy('plan')
+
+
+class planUpdateView(UpdateView):
+    model = Plan
+    form_class = planForm
+    template_name = 'update_plan.html'
+    success_url = reverse_lazy('plan')
+
+
+class planDeleteView(DeleteView):
+    model = Plan
+    template_name = 'plan_confirm_delete.html'
+    success_url = reverse_lazy('plan')

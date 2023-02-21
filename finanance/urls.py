@@ -106,5 +106,13 @@ urlpatterns = [
     path('immob/', views.immob, name='immob'),
     path('create_immob/', views.immobCreateView.as_view(), name='create_immob'),
 
+    # plan
+    path('plan/<int:pk>/update/',
+         views.planUpdateView.as_view(), name='plan_update'),
+    path('plan/<int:pk>/delete/',
+         views.planDeleteView.as_view(), name='delete_plan'),
+    path('plan/', views.plan, name='plan'),
+    path('create_plan/', views.planCreateView.as_view(), name='create_plan'),
+
 ]
 # + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

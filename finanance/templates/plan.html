@@ -1,0 +1,38 @@
+{% extends "base/base.html" %} {% block body %}
+<h1>plan comptable</h1>
+<a href="{% url 'create_plan' %}" class="btn btn-success" style="width: max-content;">Ajouter</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">code</th>
+            <th scope="col">nom_compte</th>
+            <th scope="col">type</th>
+            <th scope="col">devise_compte</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for plan in plan %}
+        <tr>
+            <th scope="row">{{plan.id}}</th>
+            <th scope="row">{{plan.code}}</th>
+            <th scope="row">{{plan.nom_compte}}</th>
+            <th scope="row">{{plan.type}}</th>
+            <th scope="row">{{plan.devise_compte}}</th>
+
+            <td><a class="btn btn-primary btn-xs" href="{% url 'plan_update' plan.id  %}"><span class="glyphicon glyphicon-edit">Update</span></a></td>
+            <td><a href="{% url 'delete_plan' plan.id  %}" class="btn btn-danger">Cancel</a></td>
+
+        </tr>
+        {%endfor%}
+    </tbody>
+</table>
+
+
+{% comment %}
+<div class="alert alert-primary" role="alert"> {% endcomment %}
+</div>
+
+{% endblock %}

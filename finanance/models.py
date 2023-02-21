@@ -266,3 +266,13 @@ class Immobe(models.Model):
     def val_amort_stat(self):
         val_amort = (self.val_amort_stat*90)
         return val_amort
+
+
+class Plan(models.Model):
+    code = models.FloatField()
+    nom_compte = models.CharField(max_length=100)
+    type = models.CharField(max_length=100)
+    devise_compte = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.code

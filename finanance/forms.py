@@ -36,6 +36,12 @@ class immobForm(forms.ModelForm):
         fields = '__all__'
 
 
+class planForm(forms.ModelForm):
+    class Meta:
+        model = models.Plan
+        fields = '__all__'
+
+
 class FourForm(forms.ModelForm):
     class Meta:
         model = models.Client
