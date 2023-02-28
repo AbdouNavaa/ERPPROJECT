@@ -1,0 +1,37 @@
+{% extends "base/base.html" %} {% block body %}
+<h1>immobilisations</h1>
+<a href="{% url 'create_immob' %}" class="btn btn-success" style="width: max-content;">Ajouter</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">nom immobilisation</th>
+            <th scope="col">date d'acquisition</th>
+            <th scope="col">valeur d'origin methode</th>
+            <th scope="col">valeur amortisable status</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for immob in immob %}
+        <tr>
+            <th scope="row">{{immob.id}}</th>
+            <th scope="row">{{immob.nom_immob}}</th>
+            <th scope="row">{{immob.date_acquz}}</th>
+            <th scope="row">{{immob.val_origin_meth}}</th>
+            <th scope="row">{{immob.val_amort}}</th>
+            <td><a class="btn btn-primary btn-xs" href="{% url 'immob_update' immob.id  %}"><span class="glyphicon glyphicon-edit">Update</span></a></td>
+            <td><a href="{% url 'delete_immob' immob.id  %}" class="btn btn-danger">Cancel</a></td>
+
+        </tr>
+        {%endfor%}
+    </tbody>
+</table>
+
+
+{% comment %}
+<div class="alert alert-primary" role="alert"> {% endcomment %}
+</div>
+
+{% endblock %}
