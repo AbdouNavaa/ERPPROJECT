@@ -26,8 +26,8 @@
       <th scope="row">{{piece.ref}}</th>
       <th scope="row">{{piece.journal}}</th>
       <th scope="row">{{piece.total}}</th>
-      <td><a class="btn btn-primary btn-xs" href="{% url 'piece_update' piece.id  %}"><span class="glyphicon glyphicon-edit">Update</span></a></td>
-      <td><a href="{% url 'delete_piece' piece.id  %}" class="btn btn-danger">Delete</a></td>
+      <td><a class="btn btn-primary btn-xs" href="{% url 'piece_update' piece.id  %}"style="border-radius: 20px;"><span class="glyphicon glyphicon-edit">Update</span></a></td>
+      <td><a href="{% url 'delete_piece' piece.id  %}" class="btn btn-danger"style="border-radius: 20px;">Delete</a></td>
     </tr>
     {%endfor%} {% endcomment %}
     {% comment %} Fact Four {% endcomment %}
@@ -71,7 +71,7 @@
       <th scope="row">{{paiement.Client}}</th>
       <th scope="row"></th>
       <th scope="row">{{paiement.journal}}</th>
-      <th scope="row">{{paiement.Montant}}</th>
+      <th scope="row">{{paiement.montant}}</th>
 
     </tr>
     {%endfor%}

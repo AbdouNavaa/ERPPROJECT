@@ -26,13 +26,13 @@ def factures_graphique(request):
 
 def facturesFr_graphique(request):
     factures = FactureFr.objects.all()
-    montants = [facture.total1 for facture in factures]
+    montants = [facture.total for facture in factures]
     noms_factures = [facture.code for facture in factures]
     plt.bar(noms_factures, montants)
     plt.xlabel('Noms de factures')
     plt.ylabel('Montants totaux')
     plt.title('Montants totaux des factures')
-    plt.savefig('factures_graphique1.png')
+    plt.savefig('factures_graphique2.png')
     plt.show()
     return render(request, 'index.html')
 
@@ -225,7 +225,7 @@ def Pieces(request):
     Total4=0
     Total=0
     for p in paiements:
-        Total1=Total1+p.Montant 
+        Total1=Total1+p.montant 
     for f2 in facturesClList:
         Total2=Total2+f2.total
     for f in facturesList:
@@ -301,32 +301,184 @@ def GL(request):
     paie = Paiements.objects.all()
     note = Notes.objects.all()
 
-    balance1 = 0
-    balance2 = 0
-    balance3 = 0
-    balance4 = 0
-    balance5 = 0
-    balance6 = 0
-    balance7 = 0
-    balance = 0
+    balance1 = 0;balance2 = 0;balance3 = 0;balance4 = 0;balance5 = 0;balance6 = 0;balance7 = 0;
+    balance = 0;totalOR = 0;totalOP1 = 0;totalOP = 0;totalAR = 0;totalAR1 = 0; totalAR2 = 0 ;totalTP = 0
+    totalTP1 = 0;totalAP = 0;totalAP1 = 0;totalTR = 0;totalTR1 = 0;totalTR2 = 0;totalPS = 0;totalPS1 = 0;totalPS2 = 0;totalEX = 0;
+    totalEX1 = 0;TG = 0;TG1 = 0;TG2 = 0
     for f in factCl:
-                balance1=balance1+f.total
+        balance1=balance1+f.total
+        totalTR1 = totalTR1 + f.TVA
+        totalPS1 = totalPS1 + f.HTaxe
+                
     for f in factFr:
         balance2=balance2-f.total
+        totalTP1=totalTP1+f.TVA
+        totalEX1 = totalEX1 + f.HTaxe
 
     for p in paie:
         balance3=balance3+p.Deb
         balance6=balance6-p.Cred
     for n in note:
         balance7=balance7-n.total
-    balance = balance + balance1 +balance3
-    balance4 = balance4 + balance2 + balance6
-    balance5 = balance5 + balance + balance4
+        totalTR2 = totalTR2 + n.TVA
+        totalPS2 = totalPS2 + n.HTaxe1
+
+    totalOR = totalOR + balance3
+    totalOP = totalOP - balance6
+    totalOP1 = totalOP1 - totalOP
+    totalAR1 = totalAR1 + balance1 - balance6
+    totalAR2 =-( totalAR2 - balance7 - balance3)
+    totalAR = totalAR + totalAR1 - totalAR2
+    totalTP = totalTP + totalTP1
+    totalAP = totalAP - balance2
+    totalAP1 = totalAP1 - totalAP
+    totalTR = totalTR2 - totalTR1
+    totalPS = totalPS2 - totalPS1
+    totalEX = totalEX + totalEX1
+ 
+    TG1 = totalOR + totalAR1 + totalTP + totalTR2 + totalPS2 + totalEX
+    TG2 = totalOP + totalAR2 + totalAP + totalTR1 + totalPS1 
+    TG = totalOR + totalOP1 + totalAR + totalTP + totalAP1 + totalTR + totalPS + totalEX
+    return render(request, 'grandLiver.html', {"paie": paie,"factCl":
+        factCl,"factFr": factFr,"note": note,
+        'totalOR':totalOR,'totalOP':totalOP,'totalOP1':totalOP1,'totalAR':totalAR,'totalAR1':totalAR1,
+        'totalAR2':totalAR2,'totalTP':totalTP,'totalAP':totalAP,'totalAP1':totalAP1,
+        'totalTR':totalTR,'totalTR1':totalTR1,'totalTR2':totalTR2,
+        'totalPS':totalPS,'totalPS1':totalPS1,'totalPS2':totalPS2,
+        'totalEX':totalEX,'totalEX1':totalEX1,
+        'TG':TG,'TG1':TG1,'TG2':TG2,
+        })
+
+
+# Bilan
+def Bilan(request):
     
-    bal = -balance4
-    return render(request, 'grandLiver.html', {"paie": paie,"factCl": factCl,"factFr": factFr, 'balance':balance,'bal':bal,'balance5':balance5})
+    factCl = FactureCl.objects.all()
+    factFr = FactureFr.objects.all()
+    paie = Paiements.objects.all()
+    note = Notes.objects.all()
 
+    balance1 = 0;balance2 = 0;balance3 = 0;balance4 = 0;balance5 = 0;balance6 = 0;balance7 = 0;
+    balance = 0;totalOR = 0;totalOP1 = 0;totalOP = 0;totalAR = 0;totalAR1 = 0; totalAR2 = 0 ;totalTP = 0
+    totalTP1 = 0;totalAP = 0;totalAP1 = 0;totalTR = 0;totalTR1 = 0;totalTR2 = 0;totalPS = 0;totalPS1 = 0;totalPS2 = 0;totalEX = 0;
+    totalEX1 = 0;TG = 0;TG1 = 0;TG2 = 0;TotalAC =0;TotalAC1 =0
+    for f in factCl:
+        balance1=balance1+f.total
+        totalTR1 = totalTR1 + f.TVA
+        totalPS1 = totalPS1 + f.HTaxe
+                
+    for f in factFr:
+        balance2=balance2-f.total
+        totalTP1=totalTP1+f.TVA
+        totalEX1 = totalEX1 + f.HTaxe
 
+    for p in paie:
+        balance3=balance3+p.Deb
+        balance6=balance6-p.Cred
+    for n in note:
+        balance7=balance7-n.total
+        totalTR2 = totalTR2 + n.TVA
+        totalPS2 = totalPS2 + n.HTaxe1
+
+    totalOR = totalOR + balance3
+    totalOP = totalOP - balance6
+    totalOP1 = totalOP1 - totalOP
+    totalAR1 = totalAR1 + balance1 - balance6
+    totalAR2 =-( totalAR2 - balance7 - balance3)
+    totalAR = totalAR + totalAR1 - totalAR2
+    totalTP = totalTP + totalTP1
+    totalAP = totalAP - balance2
+    totalAP1 = totalAP1 - totalAP
+    totalTR = totalTR2 - totalTR1
+    totalPS = totalPS2 - totalPS1
+    totalEX = totalEX + totalEX1
+ 
+    TG1 = totalOR + totalAR1 + totalTP + totalTR2 + totalPS2 + totalEX
+    TG2 = totalOP + totalAR2 + totalAP + totalTR1 + totalPS1 
+    TG = totalOR + totalOP1 + totalAR + totalTP + totalAP1 + totalTR + totalPS + totalEX
+    
+    TotalAC = TotalAC + totalOR + totalOP1 + totalTP
+    TotalAC1 = TotalAC + totalAR
+    TotalDCT = -(totalTR + totalAP1)
+    totalAP11 = -totalAP1
+    totalTR11 = -totalTR
+    totalCP = -totalPS - totalEX
+    totalPCP = totalCP + TotalDCT
+    TotalBillan = TotalAC1 - totalPCP
+    return render(request, 'bilan.html', {"paie": paie,"factCl":
+        factCl,"factFr": factFr,"note": note,
+        'totalOR':totalOR,'totalOP':totalOP,'totalOP1':totalOP1,'totalAR':totalAR,'totalAR1':totalAR1,
+        'totalAR2':totalAR2,'totalTP':totalTP,'totalAP':totalAP,'totalAP1':totalAP1,
+        'totalTR':totalTR,'totalTR1':totalTR1,'totalTR2':totalTR2,
+        'totalPS':totalPS,'totalPS1':totalPS1,'totalPS2':totalPS2,
+        'totalEX':totalEX,'totalEX1':totalEX1,
+        'TG':TG,'TG1':TG1,'TG2':TG2,'TotalAC':TotalAC,'TotalAC1':TotalAC1,'TotalDCT':TotalDCT,
+        'totalAP11':totalAP11,'totalTR11':totalTR11,'totalCP':totalCP,'totalPCP':totalPCP,'TotalBillan':TotalBillan
+        })
+# Compte de result
+def ComptRes(request):
+    
+    factCl = FactureCl.objects.all()
+    factFr = FactureFr.objects.all()
+    paie = Paiements.objects.all()
+    note = Notes.objects.all()
+
+    balance1 = 0;balance2 = 0;balance3 = 0;balance4 = 0;balance5 = 0;balance6 = 0;balance7 = 0;
+    balance = 0;totalOR = 0;totalOP1 = 0;totalOP = 0;totalAR = 0;totalAR1 = 0; totalAR2 = 0 ;totalTP = 0
+    totalTP1 = 0;totalAP = 0;totalAP1 = 0;totalTR = 0;totalTR1 = 0;totalTR2 = 0;totalPS = 0;totalPS1 = 0;totalPS2 = 0;totalEX = 0;
+    totalEX1 = 0;TG = 0;TG1 = 0;TG2 = 0;TotalAC =0;TotalAC1 =0
+    for f in factCl:
+        balance1=balance1+f.total
+        totalTR1 = totalTR1 + f.TVA
+        totalPS1 = totalPS1 + f.HTaxe
+                
+    for f in factFr:
+        balance2=balance2-f.total
+        totalTP1=totalTP1+f.TVA
+        totalEX1 = totalEX1 + f.HTaxe
+
+    for p in paie:
+        balance3=balance3+p.Deb
+        balance6=balance6-p.Cred
+    for n in note:
+        balance7=balance7-n.total
+        totalTR2 = totalTR2 + n.TVA
+        totalPS2 = totalPS2 + n.HTaxe1
+
+    totalOR = totalOR + balance3
+    totalOP = totalOP - balance6
+    totalOP1 = totalOP1 - totalOP
+    totalAR1 = totalAR1 + balance1 - balance6
+    totalAR2 =-( totalAR2 - balance7 - balance3)
+    totalAR = totalAR + totalAR1 - totalAR2
+    totalTP = totalTP + totalTP1
+    totalAP = totalAP - balance2
+    totalAP1 = totalAP1 - totalAP
+    totalTR = totalTR2 - totalTR1
+    totalPS = totalPS2 - totalPS1
+    totalEX = totalEX + totalEX1
+ 
+    TG1 = totalOR + totalAR1 + totalTP + totalTR2 + totalPS2 + totalEX
+    TG2 = totalOP + totalAR2 + totalAP + totalTR1 + totalPS1 
+    TG = totalOR + totalOP1 + totalAR + totalTP + totalAP1 + totalTR + totalPS + totalEX
+    
+    TotalAC = TotalAC + totalOR + totalOP1 + totalTP
+    TotalAC1 = TotalAC + totalAR
+    TotalDCT = -(totalTR + totalAP1)
+    totalAP11 = -totalAP1
+    totalTR11 = -totalTR
+    TotalRev = -totalPS
+    totalCR = TotalRev - totalEX
+    return render(request, 'compte_res.html', {"paie": paie,"factCl":
+        factCl,"factFr": factFr,"note": note,
+        'totalOR':totalOR,'totalOP':totalOP,'totalOP1':totalOP1,'totalAR':totalAR,'totalAR1':totalAR1,
+        'totalAR2':totalAR2,'totalTP':totalTP,'totalAP':totalAP,'totalAP1':totalAP1,
+        'totalTR':totalTR,'totalTR1':totalTR1,'totalTR2':totalTR2,
+        'totalPS':totalPS,'totalPS1':totalPS1,'totalPS2':totalPS2,
+        'totalEX':totalEX,'totalEX1':totalEX1,
+        'TG':TG,'TG1':TG1,'TG2':TG2,'TotalAC':TotalAC,'TotalAC1':TotalAC1,'TotalDCT':TotalDCT,
+        'totalAP11':totalAP11,'totalTR11':totalTR11,'TotalRev':TotalRev,'totalCR':totalCR
+        })
 
 # Paiments
 # Affiche

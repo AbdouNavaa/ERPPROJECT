@@ -80,11 +80,15 @@ class Notes(models.Model):
         return self.code
     @property
     def HTaxe(self):
+        hTaxe =-self.quantity*self.produit.prix
+        return hTaxe
+    @property
+    def HTaxe1(self):
         hTaxe =self.quantity*self.produit.prix
         return hTaxe
     @property
     def TVA(self):
-        tva =(self.quantity*self.produit.prix) * self.produit.Taxes
+        tva =-self.HTaxe * self.produit.Taxes
         return tva
     @property
     def total(self):
@@ -189,6 +193,12 @@ class Paiements(models.Model):
         Montant =0
         if self.Type in self.Type_CHOICES[0]:
             Montant =self.montant
+        return Montant
+    @property
+    def Credit(self):
+        Montant =0
+        if self.Type in self.Type_CHOICES[0]:
+            Montant =-self.montant
         return Montant
     
     @property

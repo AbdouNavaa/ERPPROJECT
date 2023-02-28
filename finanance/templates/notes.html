@@ -3,7 +3,7 @@
 {% block body %}
 <h1>Clients Notes</h1>
 
-<a href="{% url 'create_note' %}" class="btn btn-success" style="width: max-content;">Ajouter</a>
+<a href="{% url 'create_note' %}" class="btn btn-success" style="width: max-content;border-radius: 25px; padding-left: 5%;padding-right: 5%;">Ajouter</a>
 
 <table class="table">
   <thead>
@@ -26,8 +26,8 @@
       <th scope="row">{{note.date_facturation}}</th>
       <th scope="row">{{note.HTaxe}}</th>
       <th scope="row">{{note.total}}</th>
-      <td><a class="btn btn-primary btn-xs" href="{% url 'note_update' note.id  %}"><span class="glyphicon glyphicon-edit">Update</span></a></td>
-      <td><a href="{% url 'delete_note' note.id  %}" class="btn btn-danger">Delete</a></td>
+      <td><a class="btn btn-primary btn-xs" href="{% url 'note_update' note.id  %}"style="border-radius: 20px;"><span class="glyphicon glyphicon-edit">Update</span></a></td>
+      <td><a href="{% url 'delete_note' note.id  %}" class="btn btn-danger"style="border-radius: 20px;">Delete</a></td>
       {% comment %} <td><a href="{% url '' %}" class="btn btn-info">Ajouter</a></td> {% endcomment %}
     </tr>
     {%endfor%}

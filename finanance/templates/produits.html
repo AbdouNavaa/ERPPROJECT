@@ -2,7 +2,7 @@
 
 {% block body %}
 <h1>Products</h1>
-<a href="{% url 'create_prod' %}" class="btn btn-success" style="width: max-content;">Ajouter</a>
+<a href="{% url 'create_prod' %}" class="btn btn-success" style="width: max-content;border-radius: 25px; padding-left: 5%;padding-right: 5%;">Ajouter</a>
 
 <table class="table">
   <thead>
@@ -23,8 +23,8 @@
       <th scope="row">{{prod.prix}}</th>
       <th scope="row">{{prod.Taxes}}</th>
       <th scope="row">{{prod.Taxesfourn}}</th>
-      <td><a class="btn btn-primary btn-xs" href="{% url 'prod_update' prod.id  %}"><span class="glyphicon glyphicon-edit">Update</span></a></td>
-      <td><a href="{% url 'delete_prod' prod.id  %}" class="btn btn-danger">Cancel</a></td>
+      <td><a class="btn btn-primary btn-xs" href="{% url 'prod_update' prod.id  %}"style="border-radius: 20px;"><span class="glyphicon glyphicon-edit">Update</span></a></td>
+      <td><a href="{% url 'delete_prod' prod.id  %}" class="btn btn-danger"style="border-radius: 20px;">Delete</a></td>
 
     </tr>
     {%endfor%}

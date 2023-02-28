@@ -5,10 +5,9 @@
 <table class="table">
   <thead>
     <tr style="background-color: black ;font-weight: bolder; color: white;">
-        <th scope="col">Journal</th>
-      <th scope="col">Date</th>
-      <th scope="col">Code</th>
-      {% comment %} <th scope="col">Comminucation</th> {% endcomment %}
+        <th scope="col">Code</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
       <th scope="col">Partenaire</th>
       <th scope="col">Device</th>
       <th scope="col">Deb</th>
@@ -18,51 +17,279 @@
     </tr>
     <tbody>
   </thead>
+<!--  -->
+  <tr><td colspan="6">
+    <h3>101402 Outstanding Receipts</h3>
+  </td>
+</tr>
+  {% for p in paie %}
+  <tr>
+      <th scope="row">{{p.code}}</th>
+  <th scope="row">{{p.Date}}</th>
+    <th scope="row"></th>
+    <th scope="row">{{p.Client}}</th>
+    <th scope="row"></th>
+    <th scope="row">{{p.Deb}}</th>
+    <th scope="row"></th>
+    <th scope="row">{{p.Deb}}</th>
+  </tr>
+  {%endfor%}
+
+  <tr style="color: red; background-color: white; font-style: italic; font-weight: bolder;">
+    <th scope="row" >Total 101402 Outstanding Receipts</th>
+    <td colspan="4"></td>
+    <td colspan="1">{{totalOR}}</td>
+    <td colspan="1"></td>
+    <td colspan="1">{{totalOR}}</td>
+  </tr>
+
+<!-- 101403 Outstanding Payments -->
+  <tr><td colspan="6">
+    <h3>101403 Outstanding Payments</h3>
+  </td>
+</tr>
+  {% for p in paie %}
+  <tr>
+      <th scope="row">{{p.code}}</th>
+  <th scope="row">{{p.Date}}</th>
+    <th scope="row"></th>
+    <th scope="row">{{p.Client}}</th>
+    <th scope="row"></th>
+    <th scope="row"></th>
+    <th scope="row">{{p.Cred}}</th>
+    <th scope="row">{{p.Credit}}</th>
+  </tr>
+  {%endfor%}
+
+  <tr style="color: red; background-color: white; font-style: italic; font-weight: bolder;">
+    <th scope="row" >Total 101403 Outstanding Payments</th>
+    <td colspan="4"></td>
+    <td colspan="1"></td>
+    <td colspan="1">{{totalOP}}</td>
+    <td colspan="1">{{totalOP1}}</td>
+  </tr>
+
+
+<!-- 121000 Account Receivable -->
+<tr><td colspan="6">
+  <h3>121000 Account Receivable</h3>
+</td>
+</tr>
+  {% for fc in factCl %}
+  <tr>
+      <th scope="row">{{fc.code}}</th>
+  <th scope="row">{{fc.date_facturation}}</th>
+    <th scope="row"></th>
+    {% comment %} <th scope="row">Extorurn de {{fc.id}}</th> {% endcomment %}
+    <th scope="row">{{fc.client}}</th>
+    <th scope="row"></th>
+    <th scope="row">{{fc.total}}</th>
+    <th scope="row"></th>
+    <th scope="row">{{fc.total}}</th>
+  </tr>
+  {%endfor%}
+
+  {% for n in note %}
+  <tr>
+      <th scope="row">{{n.code}}</th>
+  <th scope="row">{{n.date_facturation}}</th>
+    <th scope="row"></th>
+    <th scope="row">{{n.client}}</th>
+    <th scope="row"></th>
+    <th scope="row"></th>
+    <th scope="row">{{n.total}}</th>
+    <th scope="row">{{n.total}}</th>
+  </tr>
+  {%endfor%}
+
+{% for p in paie %}
+<tr>
+    <th scope="row">{{p.code}}</th>
+<th scope="row">{{p.Date}}</th>
+  <th scope="row"></th>
+  <th scope="row">{{p.Client}}</th>
+  <th scope="row"></th>
+  <th scope="row">{{p.Cred}}</th>
+  <th scope="row">{{p.Deb}}</th>
+  <th scope="row">{{p.Montant}}</th>
+</tr>
+{%endfor%}
+
+
+<tr style="color: red; background-color: white; font-style: italic; font-weight: bolder;">
+  <th scope="row" >Total 121000 Account Receivable</th>
+  <td colspan="4"></td>
+  <td colspan="1">{{totalAR1}}</td>
+  <td colspan="1">{{totalAR2}}</td>
+  <td colspan="1">{{totalAR}}</td>
+</tr>
+
+  <!-- 131000 Taxes Paid -->
+  <tr><td colspan="6">
+    <h3>131000 Taxes Paid</h3>
+  </td>
+</tr>
+  {% for fr in factFr %}
+  <tr>
+      <th scope="row">{{fr.code}}</th>
+  <th scope="row">{{fr.date_facturation}}</th>
+    <th scope="row"></th>
+    <th scope="row">{{fr.fournisseur}}</th>
+    <th scope="row"></th>
+    <th scope="row">{{fr.TVA}}</th>
+    <th scope="row"></th>
+    <th scope="row">{{fr.TVA}}</th>
+  </tr>
+  {%endfor%}
+  <tr style="color: red; background-color: white; font-style: italic; font-weight: bolder;">
+    <th scope="row" >Total 131000 Taxes Paid</th>
+    <td colspan="4"></td>
+    <td colspan="1">{{totalTP}}</td>
+    <td colspan="1"></td>
+    <td colspan="1">{{totalTP}}</td>
+  </tr>
+
+
+<!-- 211000 Account Payable -->
+<tr><td colspan="6">
+  <h3>211000 Account Payable</h3>
+</td>
+</tr>
+{% for fr in factFr %}
+<tr>
+    <th scope="row">{{fr.code}}</th>
+<th scope="row">{{fr.date_facturation}}</th>
+  <th scope="row"></th>
+  <th scope="row">{{fr.fournisseur}}</th>
+  <th scope="row"></th>
+  <th scope="row"></th>
+  <th scope="row">{{fr.total}}</th>
+  <th scope="row">{{fr.total1}}</th>
+</tr>
+{%endfor%}
+<tr style="color: red; background-color: white; font-style: italic; font-weight: bolder;">
+  <th scope="row" >Total 211000 Account Payable</th>
+  <td colspan="4"></td>
+  <td colspan="1"></td>
+  <td colspan="1">{{totalAP}}</td>
+  <td colspan="1">{{totalAP1}}</td>
+</tr>
+
+<!-- 251000 Taxes Received -->
+  <tr><td colspan="6">
+    <h3>251000 Taxes Received</h3>
+  </td>
+</tr>
     {% for fc in factCl %}
     <tr>
-        <th scope="row">{{fc.journal}}</th>
+        <th scope="row">{{fc.code}}</th>
     <th scope="row">{{fc.date_facturation}}</th>
-      <th scope="row">{{fc.code}}</th>
-      {% comment %} <th scope="row">Extorurn de {{fc.id}}</th> {% endcomment %}
+      <th scope="row"></th>
       <th scope="row">{{fc.client}}</th>
       <th scope="row"></th>
-      <th scope="row">{{fc.total}}</th>
       <th scope="row"></th>
-      <th scope="row">{{fc.total}}</th>
+      <th scope="row">{{fc.TVA}}</th>
+      <th scope="row">-{{fc.TVA}}</th>
     </tr>
     {%endfor%}
+
+    {% for n in note %}
+
+
+    <tr>
+        <th scope="row">{{n.code}}</th>
+    <th scope="row">{{n.date_facturation}}</th>
+      <th scope="row"></th>
+      <th scope="row">{{n.client}}</th>
+      <th scope="row"></th>
+      <th scope="row">{{n.TVA}}</th>
+      <th scope="row"></th>
+      <th scope="row">{{n.TVA}}</th>
+    </tr>
+    {%endfor%}
+  
+    <tr style="color: red; background-color: white; font-style: italic; font-weight: bolder;">
+      <th scope="row" >Total 251000 Taxes Received</th>
+      <td colspan="4"></td>
+      <td colspan="1">{{totalTR2}}</td>
+      <td colspan="1">{{totalTR1}}</td>
+      <td colspan="1">{{totalTR}}</td>
+    </tr>
+<!-- 400000 Product Sales -->
+  <tr><td colspan="6">
+    <h3>400000 Product Sales</h3>
+  </td>
+</tr>
+    {% for fc in factCl %}
+    <tr>
+        <th scope="row">{{fc.code}}</th>
+    <th scope="row">{{fc.date_facturation}}</th>
+      <th scope="row"></th>
+      <th scope="row">{{fc.client}}</th>
+      <th scope="row"></th>
+      <th scope="row"></th>
+      <th scope="row">{{fc.HTaxe}}</th>
+      <th scope="row">-{{fc.TVA}}</th>
+    </tr>
+    {%endfor%}
+
+    {% for n in note %}
+
+
+    <tr>
+        <th scope="row">{{n.code}}</th>
+    <th scope="row">{{n.date_facturation}}</th>
+      <th scope="row"></th>
+      <th scope="row">{{n.client}}</th>
+      <th scope="row"></th>
+      <th scope="row">{{n.HTaxe1}}</th>
+      <th scope="row"></th>
+      <th scope="row">{{n.HTaxe1}}</th>
+    </tr>
+    {%endfor%}
+  
+    <tr style="color: red; background-color: white; font-style: italic; font-weight: bolder;">
+      <th scope="row" >Total 400000 Product Sales</th>
+      <td colspan="4"></td>
+      <td colspan="1">{{totalPS2}}</td>
+      <td colspan="1">{{totalPS1}}</td>
+      <td colspan="1">{{totalPS}}</td>
+    </tr>
+  <!-- 6000 Expenses -->
+    <tr><td colspan="6">
+      <h3>6000 Expenses</h3>
+    </td>
+  </tr>
+  
     {% for fr in factFr %}
     <tr>
-        <th scope="row">{{fr.journal}}</th>
+        <th scope="row">{{fr.code}}</th>
     <th scope="row">{{fr.date_facturation}}</th>
-      <th scope="row">{{fr.code}}</th>
+      <th scope="row"></th>
       <th scope="row">{{fr.fournisseur}}</th>
       <th scope="row"></th>
+      <th scope="row">{{fr.HTaxe}}</th>
       <th scope="row"></th>
-      <th scope="row">{{fr.total}}</th>
-      <th scope="row">{{fr.total1}}</th>
-    </tr>
-    {%endfor%}
-    {% for p in paie %}
-    <tr>
-        <th scope="row">{{p.journal}}</th>
-    <th scope="row">{{p.Date}}</th>
-      <th scope="row">{{p.code}}</th>
-      <th scope="row">{{p.Client}}</th>
-      <th scope="row"></th>
-      <th scope="row">{{p.Deb}}</th>
-      <th scope="row">{{p.Cred}}</th>
-      <th scope="row">{{p.Montant}}</th>
+      <th scope="row">{{fr.HTaxe}}</th>
     </tr>
     {%endfor%}
 
+   
+    <tr style="color: red; background-color: white; font-style: italic; font-weight: bolder;">
+        <th scope="row" >Total 6000 Expenses</th>
+        <td colspan="4"></td>
+        <td colspan="1">{{totalEX1}}</td>
+        <td colspan="1"></td>
+        <td colspan="1">{{totalEX}}</td>
+      </tr>
 
-    <tr style="color: white; background-color: black; font-style: italic; font-weight: bolder;">
+
+      <tr style="color: white; background-color: black; font-style: italic; font-weight: bolder;">
         <th scope="row" >Total</th>
         <td colspan="4"></td>
-        <td colspan="1">{{balance}}</td>
-        <td colspan="1">{{bal}}</td>
-        <td colspan="1">{{balance5}}</td>
+        <td colspan="1">{{TG1}}</td>
+        <td colspan="1">{{TG2}}</td>
+        <td colspan="1">{{TG}}</td>
       </tr>
   </tbody>
   

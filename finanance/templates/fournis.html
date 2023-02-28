@@ -2,7 +2,7 @@
 
 {% block body %}
 <h1>Fournisseurs</h1>
-<a href="{% url 'create_fours' %}" class="btn btn-success" style="width: max-content;">Ajouter</a>
+<a href="{% url 'create_fours' %}" class="btn btn-success" style="width: max-content;border-radius: 25px; padding-left: 5%;padding-right: 5%;">Ajouter</a>
 
 <table class="table">
   <thead>
@@ -23,8 +23,8 @@
       <th scope="row">{{fours.address}}</th>
       <th scope="row">{{fours.mobile}}</th>
       <th scope="row">{{fours.Type}}</th>
-      <td><a class="btn btn-primary btn-xs" href="{% url 'fourn_update' fours.id  %}"><span class="glyphicon glyphicon-edit">Update</span></a></td>
-      <td><a href="{% url 'delete_fourn' fours.id  %}" class="btn btn-danger">Cancel</a></td>
+      <td><a class="btn btn-primary btn-xs" href="{% url 'fourn_update' fours.id  %}"style="border-radius: 20px;"><span class="glyphicon glyphicon-edit">Update</span></a></td>
+      <td><a href="{% url 'delete_fourn' fours.id  %}" class="btn btn-danger"style="border-radius: 20px;">Delete</a></td>
 
     </tr>
     {%endfor%}

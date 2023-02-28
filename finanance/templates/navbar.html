@@ -53,7 +53,7 @@
 
 .dropdown:hover .dropdown-content {display: block;}
 
-.dropdown:hover .dropbtn {background-color: black;}
+.dropdown:hover .dropbtn {background-color: blue;}
 .navbar{
   padding-left: 0%;
 }
@@ -61,7 +61,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-end navbar-dark bg-dark">
+<nav class="navbar navbar-expand-end navbar-dark bg-primary">
   
 <a class="nav-link" href="/index">Home</a>
 
@@ -93,8 +93,9 @@
 <div class="dropdown">
   <div class="dropbtn">Analyse</div>
   <div class="dropdown-content">
-          <a href="#">Billan </a>
-          <a href="{% url 'GL'  %}">GL</a>
+    <a href="{% url 'Bilan'  %}">Billan </a>
+    <a href="{% url 'ComptRes'  %}">Compte de Resultat </a>
+    <a href="{% url 'GL'  %}">GL</a>
   </div>
 </div>
 <div class="dropdown">
