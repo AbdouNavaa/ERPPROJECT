@@ -24,12 +24,17 @@
       <th scope="row">{{paiement.journal}}</th>
       <th scope="row">{{paiement.Mode}}</th>
       <th scope="row">{{paiement.Client}}</th>
-      <th scope="row">{{paiement.Montant}}</th>
+      <th scope="row">{{paiement.Montant}} {{paiement.Devise}}</th>
       <td><a class="btn btn-primary btn-xs" href="{% url 'pie_update' paiement.id  %}"style="border-radius: 20px;"><span class="glyphicon glyphicon-edit">Update</span></a></td>
       <td><a href="{% url 'delete_pie' paiement.id  %}" class="btn btn-danger"style="border-radius: 20px;">Delete</a></td>
 
     </tr>
     {%endfor%}
+    <tr>
+      <th colspan="5"></th>
+      <th><h5>{{Total1}}</h5></th>
+      <th colspan="2"></th>
+    </tr>
   </tbody>
 </table>
 

@@ -1,0 +1,134 @@
+{% extends "base/base.html" %}
+
+{% block body %}
+<h1>Ballance General</h1>
+<table class="table">
+  <thead>
+    <tr>
+        <td colspan="3">Solde initial</th>
+        <th colspan="2">Mars</th>
+        <th colspan="2">Solde final</th>
+
+    </tr>
+    <tr style="background-color: black ;font-weight: bolder; color: white;">
+        <th scope="col">Code</th>
+      <th scope="col">Deb</th>
+      <th scope="col">Cred</th>
+      <th scope="col">Deb</th>
+      <th scope="col">Cred</th>
+      <th scope="col">Deb</th>
+      <th scope="col">Cred</th>
+    </tr>
+    <tbody>
+  </thead>
+<!--  -->
+  <tr style="color: black; background-color: white; font-style: italic; font-weight: bolder;">
+    <th colspan="1" >101402 Outstanding Receipts</th>
+    <td colspan="1">{{totalOR}}</td>
+    <td colspan="1"></td>
+    <td colspan="1"></td>
+    <td colspan="1"></td>
+    <td colspan="1">{{totalOR}}</td>
+    <td colspan="1"></td>
+  </tr>
+
+<!-- 101403 Outstanding Payments -->
+  <tr style="color: black; background-color: white; font-style: italic; font-weight: bolder;">
+    <th colspan="1" >101403 Outstanding Payments</th>
+    <td colspan="1"></td>
+    <td colspan="1">{{totalOP}}</td>
+    <td colspan="1"></td>
+    <td colspan="1"></td>
+    <td colspan="1"></td>
+    <td colspan="1">{{totalOP}}</td>
+  </tr>
+
+
+<!-- 121000 Account Receivable -->
+<tr style="color: black; background-color: white; font-style: italic; font-weight: bolder;">
+  <th colspan="1" >121000 Account Receivable</th>
+  <td colspan="1">{{totalAR}}</td>
+    <td colspan="1"></td>
+    <td colspan="1"></td>
+    <td colspan="1"></td>
+    <td colspan="1">{{totalAR}}</td>
+    <td colspan="1"></td>
+</tr>
+
+  <!-- 131000 Taxes Paid -->
+  <tr style="color: black; background-color: white; font-style: italic; font-weight: bolder;">
+    <th colspan="1" >131000 Taxes Paid</th>
+    <td colspan="1">{{totalTP}}</td>
+    <td colspan="1"></td>
+    <td colspan="1"></td>
+    <td colspan="1"></td>
+    <td colspan="1">{{totalTP}}</td>
+    <td colspan="1"></td>
+</tr>
+
+
+<!-- 211000 Account Payable -->
+<tr style="color: black; background-color: white; font-style: italic; font-weight: bolder;">
+  <th colspan="1" >211000 Account Payable</th>
+    <td colspan="1"></td>
+    <td colspan="1">{{totalAP}}</td>
+    <td colspan="1"></td>
+    <td colspan="1"></td>
+    <td colspan="1"></td>
+    <td colspan="1">{{totalAP}}</td>
+</tr>
+
+<!-- 251000 Taxes Received -->
+    <tr style="color: black; background-color: white; font-style: italic; font-weight: bolder;">
+      <th colspan="1" >251000 Taxes Received</th>
+    <td colspan="1"></td>
+    <td colspan="1">{{totalTR11}}</td>
+    <td colspan="1"></td>
+    <td colspan="1"></td>
+    <td colspan="1"></td>
+    <td colspan="1">{{totalTR11}}</td>
+    </tr>
+<!-- 400000 Product Sales -->
+    <tr style="color: black; background-color: white; font-style: italic; font-weight: bolder;">
+      <th colspan="1" >400000 Product Sales</th>
+    <td colspan="1"></td>
+    <td colspan="1">{{totalPS}}</td>
+    <td colspan="1"></td>
+    <td colspan="1"></td>
+    <td colspan="1"></td>
+    <td colspan="1">{{totalPS}}</td>
+    </tr>
+  <!-- 6000 Expenses -->
+    <tr style="color: black; background-color: white; font-style: italic; font-weight: bolder;">
+        <th colspan="1" >6000 Expenses</th>
+        <td colspan="1">{{totalEX1}}</td>
+    <td colspan="1"></td>
+    <td colspan="1"></td>
+    <td colspan="1"></td>
+    <td colspan="1">{{totalEX1}}</td>
+    <td colspan="1"></td>
+</tr>
+
+
+      <tr style="color: white; background-color: black; font-style: italic; font-weight: bolder;">
+        <th colspan="1" >Total</th>
+        <td colspan="1">{{TG1}}</td>
+    <td colspan="1">{{TG2}}</td>    
+    <td colspan="1"></td>
+    <td colspan="1"></td>
+    <td colspan="1">{{TG1}}</td>
+    <td colspan="1">{{TG2}}</td>
+</tr>
+  </tbody>
+  
+</table>
+<table>
+  
+</table>
+
+
+
+{% comment %} <div class="alert alert-primary" role="alert"> {% endcomment %}
+</div>
+
+{% endblock %}

@@ -24,13 +24,19 @@
       <th scope="row">{{note.code}}</th>
       <th scope="row">{{note.client}}</th>
       <th scope="row">{{note.date_facturation}}</th>
-      <th scope="row">{{note.HTaxe}}</th>
-      <th scope="row">{{note.total}}</th>
+      <th scope="row">{{note.HTaxe}} {{note.Devise}}</th>
+      <th scope="row">{{note.total}} {{note.Devise}}</th>
       <td><a class="btn btn-primary btn-xs" href="{% url 'note_update' note.id  %}"style="border-radius: 20px;"><span class="glyphicon glyphicon-edit">Update</span></a></td>
       <td><a href="{% url 'delete_note' note.id  %}" class="btn btn-danger"style="border-radius: 20px;">Delete</a></td>
       {% comment %} <td><a href="{% url '' %}" class="btn btn-info">Ajouter</a></td> {% endcomment %}
     </tr>
     {%endfor%}
+    <tr>
+      <th colspan="4"></th>
+      <th><h5>{{Total1}}</h5></th>
+      <th><h5>{{Total2}}</h5></th>
+      <th colspan="2"></th>
+    </tr>
   </tbody>
 </table>
 

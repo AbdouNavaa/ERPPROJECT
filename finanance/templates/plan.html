@@ -1,29 +1,27 @@
 {% extends "base/base.html" %} {% block body %}
 <h1>plan comptable</h1>
-<a href="{% url 'create_plan' %}" class="btn btn-success" style="width: max-content;">Ajouter</a>
+<a href="{% url 'create_plan' %}" class="btn btn-success" style="width: max-content;border-radius: 20px; width:15%">Ajouter</a>
 
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">code</th>
-            <th scope="col">nom_compte</th>
-            <th scope="col">type</th>
-            <th scope="col">devise_compte</th>
+            <th scope="col">Code</th>
+            <th scope="col">Nom Compte</th>
+            <th scope="col">Type</th>
+            <th scope="col">Devise Compte</th>
             <th scope="col">Action</th>
         </tr>
     </thead>
     <tbody>
         {% for plan in plan %}
         <tr>
-            <th scope="row">{{plan.id}}</th>
             <th scope="row">{{plan.code}}</th>
             <th scope="row">{{plan.nom_compte}}</th>
             <th scope="row">{{plan.type}}</th>
             <th scope="row">{{plan.devise_compte}}</th>
 
-            <td><a class="btn btn-primary btn-xs" href="{% url 'plan_update' plan.id  %}"><span class="glyphicon glyphicon-edit">Update</span></a></td>
-            <td><a href="{% url 'delete_plan' plan.id  %}" class="btn btn-danger">Cancel</a></td>
+            <td><a class="btn btn-primary btn-xs" href="{% url 'plan_update' plan.id  %}" style="border-radius: 20px;"><span class="glyphicon glyphicon-edit">Update</span></a></td>
+            <td><a href="{% url 'delete_plan' plan.id  %}" class="btn btn-danger" style="border-radius: 20px;">Cancel</a></td>
 
         </tr>
         {%endfor%}

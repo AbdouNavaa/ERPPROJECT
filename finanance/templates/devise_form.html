@@ -1,9 +1,14 @@
-{% extends "base/base.html" %} {% block body %}
-<h1>Create a new devise</h1>
-<form method="post" class="form-control">
-    <div class="form-group">
-        {% csrf_token %} {{ form.as_p }}
-    </div>
-    <input type="submit" value="Create" class="btn btn-success">
-</form>
+{% extends "base/base.html" %}
+
+{% block body %}
+  <h1>Create a new Devise</h1>
+  <form method="post" class="form-content">
+    {% csrf_token %}
+    <table class="table  form-control-lg">
+      {{ form.as_table }}
+      </table>
+      <input type="submit" style="margin-left: 27%; padding-left: 9%; padding-right: 9%;border-radius: 20px;" 
+      value="Create" class="btn btn-success">
+  </form>
 {% endblock %}
+

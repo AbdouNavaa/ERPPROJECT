@@ -1,37 +1,33 @@
 {% extends "base/base.html" %}
 
 {% block body %}
-<h1>Clients</h1>
+<div>
+  <h1>Clients</h1>
+  <a href="{% url 'create_client' %}" class="btn btn-dark" style="width: max-content;border-radius: 25px; padding-left: 5%;padding-right: 5%;">Ajouter</a>
+</div>
 
-<a href="{% url 'create_client' %}" class="btn btn-success" style="width: max-content;border-radius: 25px; padding-left: 5%;padding-right: 5%;">Ajouter</a>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">Address</th>
-      <th scope="col">Mobile</th>
-      <th scope="col">Type</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
+
     {% for client in clientList %}
-    <tr>
-      <th scope="row">{{client.id}}</th>
-      <th scope="row">{{client.Name}}</th>
-      <th scope="row">{{client.address}}</th>
-      <th scope="row">{{client.mobile}}</th>
-      <th scope="row">{{client.Type}}</th>
-      <td><a class="btn btn-primary btn-xs" href="{% url 'client_update' client.id  %}"style="border-radius: 20px;"><span class="glyphicon glyphicon-edit">Update</span></a></td>
-      <td><a href="{% url 'delete_client' client.id  %}" class="btn btn-danger"style="border-radius: 20px;">Delete</a></td>
-
-    </tr>
+    <div class="card text-center"  style="margin-top: 2%; margin-left: 2%;;display:grid;width: 30%; float: left;">
+      <div class="card text-white bg-dark">
+        <h4 >{{client.Name}}</h4>
+      </div>
+      <div class="card-body" >
+      <h4 >{{client.address}}</h4>
+      <h4 >{{client.mobile}}</h4>
+      <h4 >{{client.Type}}</h4>
+     
+    </div>
+    <div class="card-footer bg-transparent border-dqrk"> 
+      <td><a class="btn btn-primary btn-xs" href="{% url 'client_update' client.id  %}"style="border-radius: 20px; width:45%"><span class="glyphicon glyphicon-edit">Update</span></a></td>
+      <td><a href="{% url 'delete_client' client.id  %}" class="btn btn-danger"style="border-radius: 20px;width:45%">Delete</a></td>
+</div>
+    </div>
+    {% if forloop.counter|divisibleby:3 %}
+    <div style="clear:both;"></div>
+    {% endif %}
     {%endfor%}
-  </tbody>
-</table>
-
 
 {% comment %} <div class="alert alert-primary" role="alert"> {% endcomment %}
 </div>

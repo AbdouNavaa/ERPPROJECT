@@ -1,0 +1,15 @@
+<!-- <div class="form-group"> -->
+    {% extends "base/base.html" %}
+
+    {% block body %}
+  <h1>Update Piement</h1>
+  <form method="post" class="form-control form-control-lg ">
+      {% csrf_token %}
+      <table class="table">
+        {{ form.as_table }}
+        </table>
+      <input type="submit" style="margin-left: 34%; padding-left: 9%; padding-right: 9%;" value="Save" class="btn btn-dark">
+    </form>
+    
+    {% endblock %}
+    

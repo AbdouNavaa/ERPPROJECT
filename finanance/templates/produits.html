@@ -1,35 +1,33 @@
 {% extends "base/base.html" %}
 
 {% block body %}
-<h1>Products</h1>
-<a href="{% url 'create_prod' %}" class="btn btn-success" style="width: max-content;border-radius: 25px; padding-left: 5%;padding-right: 5%;">Ajouter</a>
+<div>
+  <h1>Products</h1>
+  <a href="{% url 'create_prod' %}" class="btn btn-dark" style="width: max-content;border-radius: 25px; padding-left: 5%;padding-right: 5%;">Ajouter</a>
+</div>
 
-<table class="table">
-  <thead>
-    <tr>
-        <th scope="col">#</th>
-      <th scope="col">Nom</th>
-      <th scope="col">Prix de vente</th>
-      <th scope="col">Taxes a la vente</th>
-      <th scope="col">Taxes fournisseur</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
     {% for prod in produits %}
-    <tr>
-        <th scope="row">{{prod.id}}</th>
-      <th scope="row">{{prod.libelle}}</th>
-      <th scope="row">{{prod.prix}}</th>
-      <th scope="row">{{prod.Taxes}}</th>
-      <th scope="row">{{prod.Taxesfourn}}</th>
-      <td><a class="btn btn-primary btn-xs" href="{% url 'prod_update' prod.id  %}"style="border-radius: 20px;"><span class="glyphicon glyphicon-edit">Update</span></a></td>
-      <td><a href="{% url 'delete_prod' prod.id  %}" class="btn btn-danger"style="border-radius: 20px;">Delete</a></td>
 
-    </tr>
+      <div class="card text-center"  style="margin-top: 2%; margin-left: 2%;;display:grid;width: 30%; float: left;">
+        <div class="card text-white bg-dark">
+          <h4 >{{prod.libelle}}</h4>
+        </div>
+        <div class="card-body" >
+        <h4 >{{prod.prix}}</h4>
+        <h4 >{{prod.Taxes}}</h4>
+        <h4 >{{prod.Taxesfourn}}</h4>
+       
+      </div>
+      <div class="card-footer bg-transparent border-dqrk"> 
+        <td><a class="btn btn-primary btn-xs" href="{% url 'prod_update' prod.id  %}"style="border-radius: 20px; width:45%"><span class="glyphicon glyphicon-edit">Update</span></a></td>
+        <td><a href="{% url 'delete_prod' prod.id  %}" class="btn btn-danger"style="border-radius: 20px;width:45%">Delete</a></td>
+  </div>
+      </div>
+      {% if forloop.counter|divisibleby:3 %}
+      <div style="clear:both;"></div>
+      {% endif %}
+  
     {%endfor%}
-  </tbody>
-</table>
 
 
 {% comment %} <div class="alert alert-primary" role="alert"> {% endcomment %}

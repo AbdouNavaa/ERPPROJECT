@@ -1,0 +1,45 @@
+{% extends "base/base.html" %}
+
+{% block body %}
+<h1>Paiments Fournisseurs</h1>
+<a href="{% url 'create_pieFr' %}" class="btn btn-success" style="width: max-content;border-radius: 25px; padding-left: 5%;padding-right: 5%;">Ajouter</a>
+
+<table class="table">
+  <thead>
+    <tr>
+        <th scope="col">Date</th>
+      <th scope="col">Code</th>
+      <th scope="col">Journal</th>
+      <th scope="col">Mode</th>
+      <th scope="col">Fournisseur</th>
+      <th scope="col">Montant</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for paiement in paiments %}
+    <tr>
+        <th scope="row">{{paiement.Date}}</th>
+      <th scope="row">{{paiement.code}}</th>
+      <th scope="row">{{paiement.journal}}</th>
+      <th scope="row">{{paiement.Mode}}</th>
+      <th scope="row">{{paiement.fournisseur}}</th>
+      <th scope="row">{{paiement.Montant}} {{paiement.Devise}}</th>
+      <td><a class="btn btn-primary btn-xs" href="{% url 'pieFr_update' paiement.id  %}"style="border-radius: 20px;"><span class="glyphicon glyphicon-edit">Update</span></a></td>
+      <td><a href="{% url 'delete_pieFr' paiement.id  %}" class="btn btn-danger"style="border-radius: 20px;">Delete</a></td>
+
+    </tr>
+    {%endfor%}
+    <tr>
+      <th colspan="5"></th>
+      <th><h5>{{Total1}}</h5></th>
+      <th colspan="2"></th>
+    </tr>
+  </tbody>
+</table>
+
+
+{% comment %} <div class="alert alert-primary" role="alert"> {% endcomment %}
+</div>
+
+{% endblock %}

@@ -18,7 +18,7 @@
     <tbody>
   </thead>
 <!--  -->
-  <tr><td colspan="6">
+  <tr><td colspan="8" style="color:white; background-color: rgb(113, 109, 109); font-style: italic;font-family: 'Times New Roman', Times, serif;">
     <h3>101402 Outstanding Receipts</h3>
   </td>
 </tr>
@@ -28,6 +28,18 @@
   <th scope="row">{{p.Date}}</th>
     <th scope="row"></th>
     <th scope="row">{{p.Client}}</th>
+    <th scope="row"></th>
+    <th scope="row">{{p.Deb}}</th>
+    <th scope="row"></th>
+    <th scope="row">{{p.Deb}}</th>
+  </tr>
+  {%endfor%}
+  {% for p in paies %}
+  <tr>
+      <th scope="row">{{p.code}}</th>
+  <th scope="row">{{p.Date}}</th>
+    <th scope="row"></th>
+    <th scope="row">{{p.fournisseur}}</th>
     <th scope="row"></th>
     <th scope="row">{{p.Deb}}</th>
     <th scope="row"></th>
@@ -44,7 +56,7 @@
   </tr>
 
 <!-- 101403 Outstanding Payments -->
-  <tr><td colspan="6">
+  <tr><td colspan="8" style="color:white; background-color: rgb(113, 109, 109); font-style: italic;font-family: 'Times New Roman', Times, serif;">
     <h3>101403 Outstanding Payments</h3>
   </td>
 </tr>
@@ -54,6 +66,18 @@
   <th scope="row">{{p.Date}}</th>
     <th scope="row"></th>
     <th scope="row">{{p.Client}}</th>
+    <th scope="row"></th>
+    <th scope="row"></th>
+    <th scope="row">{{p.Cred}}</th>
+    <th scope="row">{{p.Credit}}</th>
+  </tr>
+  {%endfor%}
+  {% for p in paies %}
+  <tr>
+      <th scope="row">{{p.code}}</th>
+  <th scope="row">{{p.Date}}</th>
+    <th scope="row"></th>
+    <th scope="row">{{p.fournisseur}}</th>
     <th scope="row"></th>
     <th scope="row"></th>
     <th scope="row">{{p.Cred}}</th>
@@ -71,7 +95,8 @@
 
 
 <!-- 121000 Account Receivable -->
-<tr><td colspan="6">
+<!-- 121000 Account Receivable -->
+<tr><td colspan="8" style="color:white; background-color: rgb(113, 109, 109); font-style: italic;font-family: 'Times New Roman', Times, serif;">
   <h3>121000 Account Receivable</h3>
 </td>
 </tr>
@@ -125,7 +150,7 @@
 </tr>
 
   <!-- 131000 Taxes Paid -->
-  <tr><td colspan="6">
+  <tr><td colspan="8" style="color:white; background-color: rgb(113, 109, 109); font-style: italic;font-family: 'Times New Roman', Times, serif;">
     <h3>131000 Taxes Paid</h3>
   </td>
 </tr>
@@ -151,7 +176,7 @@
 
 
 <!-- 211000 Account Payable -->
-<tr><td colspan="6">
+<tr><td colspan="8" style="color:white; background-color: rgb(113, 109, 109); font-style: italic;font-family: 'Times New Roman', Times, serif;">
   <h3>211000 Account Payable</h3>
 </td>
 </tr>
@@ -167,16 +192,28 @@
   <th scope="row">{{fr.total1}}</th>
 </tr>
 {%endfor%}
+{% for p in paies %}
+<tr>
+    <th scope="row">{{p.code}}</th>
+<th scope="row">{{p.Date}}</th>
+  <th scope="row"></th>
+  <th scope="row">{{p.fournisseur}}</th>
+  <th scope="row"></th>
+  <th scope="row">{{p.Cred}}</th>
+  <th scope="row"></th>
+  <th scope="row">{{p.Credit}}</th>
+</tr>
+{%endfor%}
 <tr style="color: red; background-color: white; font-style: italic; font-weight: bolder;">
   <th scope="row" >Total 211000 Account Payable</th>
   <td colspan="4"></td>
-  <td colspan="1"></td>
-  <td colspan="1">{{totalAP}}</td>
   <td colspan="1">{{totalAP1}}</td>
+  <td colspan="1">{{totalAP}}</td>
+  <td colspan="1">{{totalAP2}}</td>
 </tr>
 
 <!-- 251000 Taxes Received -->
-  <tr><td colspan="6">
+  <tr><td colspan="8" style="color:white; background-color: rgb(113, 109, 109); font-style: italic;font-family: 'Times New Roman', Times, serif;">
     <h3>251000 Taxes Received</h3>
   </td>
 </tr>
@@ -216,7 +253,7 @@
       <td colspan="1">{{totalTR}}</td>
     </tr>
 <!-- 400000 Product Sales -->
-  <tr><td colspan="6">
+  <tr><td colspan="8" style="color:white; background-color: rgb(113, 109, 109); font-style: italic;font-family: 'Times New Roman', Times, serif;">
     <h3>400000 Product Sales</h3>
   </td>
 </tr>
@@ -256,7 +293,7 @@
       <td colspan="1">{{totalPS}}</td>
     </tr>
   <!-- 6000 Expenses -->
-    <tr><td colspan="6">
+    <tr><td colspan="8" style="color:white; background-color: rgb(113, 109, 109); font-style: italic;font-family: 'Times New Roman', Times, serif;">
       <h3>6000 Expenses</h3>
     </td>
   </tr>

@@ -1,35 +1,41 @@
 {% extends "base/base.html" %}
 
 {% block body %}
-<h1>Fournisseurs</h1>
-<a href="{% url 'create_fours' %}" class="btn btn-success" style="width: max-content;border-radius: 25px; padding-left: 5%;padding-right: 5%;">Ajouter</a>
+<div>
+  <h1>Fournisseurs</h1>
+  <a href="{% url 'create_fours' %}" class="btn btn-dark" style="width: max-content;border-radius: 25px; padding-left: 5%;padding-right: 5%;">Ajouter</a>
+</div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">Address</th>
-      <th scope="col">Mobile</th>
-      <th scope="col">Type</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
+
     {% for fours in foursList %}
-    <tr>
-      <th scope="row">{{fours.id}}</th>
-      <th scope="row">{{fours.Name}}</th>
-      <th scope="row">{{fours.address}}</th>
-      <th scope="row">{{fours.mobile}}</th>
-      <th scope="row">{{fours.Type}}</th>
-      <td><a class="btn btn-primary btn-xs" href="{% url 'fourn_update' fours.id  %}"style="border-radius: 20px;"><span class="glyphicon glyphicon-edit">Update</span></a></td>
-      <td><a href="{% url 'delete_fourn' fours.id  %}" class="btn btn-danger"style="border-radius: 20px;">Delete</a></td>
+    <div class="card text-center"  style="margin-top: 2%; margin-left: 2%;;display:grid;width: 30%; float: left;">
+      <div class="card text-white bg-dark">
+        <h4 >{{fours.Name}}</h4>
+      </div>
+      <div class="card-body" >
+      <h4 >{{fours.address}}</h4>
+      <h4 >{{fours.mobile}}</h4>
+      <h4 >{{fours.Type}}</h4>
+      
+            {% comment %} <th scope="row">{{fours.id}}</th>
+            <th scope="row">{{fours.Name}}</th>
+            <th scope="row">{{fours.address}}</th>
+            <th scope="row">{{fours.mobile}}</th>
+            <th scope="row">{{fours.Type}}</th> {% endcomment %}
+            {% comment %} <td><a class="btn btn-primary btn-xs" href="{% url 'fourn_update' fours.id  %}"style="border-radius: 20px;"><span class="glyphicon glyphicon-edit">Update</span></a></td>
+            <td><a href="{% url 'delete_fourn' fours.id  %}" class="btn btn-danger"style="border-radius: 20px;">Delete</a></td> {% endcomment %}
+     
+    </div>
+    <div class="card-footer bg-transparent border-dqrk"> 
+      <td><a class="btn btn-primary btn-xs" href="{% url 'fourn_update' fours.id  %}"style="border-radius: 20px; width:45%"><span class="glyphicon glyphicon-edit">Update</span></a></td>
+      <td><a href="{% url 'delete_fourn' fours.id  %}" class="btn btn-danger"style="border-radius: 20px;width:45%">Delete</a></td>
+</div>
+    </div>
+    {% if forloop.counter|divisibleby:3 %}
+    <div style="clear:both;"></div>
+    {% endif %}
 
-    </tr>
     {%endfor%}
-  </tbody>
-</table>
 
 
 {% comment %} <div class="alert alert-primary" role="alert"> {% endcomment %}

@@ -88,6 +88,14 @@ class PaiementForm(forms.ModelForm):
     class Meta:
         model = models.Paiements
         fields = '__all__'
+class Paiement_Fr_Form(forms.ModelForm):
+    class Meta:
+        model = models.PaiementsFr
+        fields = '__all__'
+class JournauxForm(forms.ModelForm):
+    class Meta:
+        model = models.Journal
+        fields = '__all__'
 # #address of shipment
 # class AddressForm(forms.Form):
 #     Email = forms.EmailField()

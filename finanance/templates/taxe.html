@@ -1,13 +1,13 @@
 {% extends "base/base.html" %} {% block body %}
 <h1>taxes</h1>
-<a href="{% url 'create_taxe' %}" class="btn btn-success" style="width: max-content;">Ajouter</a>
+<a href="{% url 'create_taxe' %}" class="btn btn-success" style="width: max-content;border-radius: 20px; width:15%">Crrer</a>
 
 <table class="table">
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">nom_taxe</th>
-            <th scope="col">type_taxe</th>
+            <th scope="col">Nom du Taxe</th>
+            <th scope="col">Type du Taxe</th>
             <th scope="col">Action</th>
         </tr>
     </thead>
@@ -18,8 +18,8 @@
             <th scope="row">{{taxe.nom_taxe}}</th>
             <th scope="row">{{taxe.type_taxe}}</th>
 
-            <td><a class="btn btn-primary btn-xs" href="{% url 'taxe_update' taxe.id  %}"><span class="glyphicon glyphicon-edit">Update</span></a></td>
-            <td><a href="{% url 'delete_taxe' taxe.id  %}" class="btn btn-danger">Cancel</a></td>
+            <td><a class="btn btn-primary btn-xs" href="{% url 'taxe_update' taxe.id  %}" style="border-radius: 20px; width:45%"><span class="glyphicon glyphicon-edit">Update</span></a></td>
+            <td><a href="{% url 'delete_taxe' taxe.id  %}" class="btn btn-danger" style="border-radius: 20px; width:45%">Delete</a></td>
 
         </tr>
         {%endfor%}

@@ -1,14 +1,16 @@
 {% extends "base/base.html" %}
 
 {% block body %}
-<h1>journaus</h1>
+<h1>journaux</h1>
+<a href="{% url 'create_journal' %}" class="btn btn-success" style="width: max-content;border-radius: 20px; width:15%">Ajouter</a>
 
 <table class="table">
   <thead>
-    <tr style="background-color: black ;font-weight: bolder; color: white;">
+        <tr>
         <th scope="col">Name</th>
         <th scope="col">Type</th>
-      <th scope="col">Code</th>
+        <th scope="col">Code</th>
+        <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
@@ -17,6 +19,8 @@
       <th scope="row">{{journau.name}}</th>
       <th scope="row">{{journau.type}}</th>
       <th scope="row">{{journau.code}}</th>
+      <td><a class="btn btn-primary btn-xs" href="{% url 'journal_update' journau.id  %}" style="border-radius: 20px;"><span class="glyphicon glyphicon-edit">Update</span></a></td>
+      <td><a href="{% url 'delete_journal' journau.id  %}" class="btn btn-danger" style="border-radius: 20px;">Cancel</a></td>
 
     </tr>
     {%endfor%}

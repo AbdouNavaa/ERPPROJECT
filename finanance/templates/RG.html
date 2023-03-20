@@ -1,0 +1,60 @@
+{% extends "base/base.html" %}
+
+{% block body %}
+
+
+<table class="table">
+<tr> 
+    <td colspan="7"></td>
+<td><h4>Balance</h4></td>
+</tr>
+<!-- <tr>
+    <td colspan="8"><h4>Especes</h4></td>
+</tr>
+<hr >
+
+    <tr>
+        <td colspan="8"><h5>Encaissements</h5></td>
+    </tr>
+    <tr><td colspan="8"><h5>Décaissements</h5></td></tr>
+    <tr><td colspan="8"><h5>Décaissements</h5></td> </tr>
+    <tr><td colspan="8"><h5>Solde de clôture bancaire</h5></td></tr> -->
+
+<tr style="border-color: blue; background-color: rgb(82, 72, 72);">
+    <td colspan="8"><h4 style="color: white;font-style: italic;">Rentabilite</h4></td>
+</tr>
+
+
+    <tr>
+        <td colspan="7"><h5>Revenue</h5>
+            <td colspan="1">{{TotalRev}}</td>
+        </td>
+    </tr>
+    <tr><td colspan="7"><h5>Bénéfice brut</h5></td>
+        <td colspan="1">{{TotalRev}}</td>
+    </tr>
+    <tr><td colspan="7"><h5>Dépenses</h5></td> 
+        <td colspan="1">{{totalEX}}</td>
+    </tr>
+    <tr><td colspan="7"><h5>Bénéfice net</h5></td>
+        <td >{{totalCR}}</td>
+    </tr>
+    <tr style="border-color: blue; background-color: rgb(88, 81, 81);">
+    <td colspan="8"><h4 style="color: white;font-style: italic;">Bilan</h4></td>
+</tr>
+
+
+    <tr>
+        <td colspan="7"><h5>Créances</h5>
+            <td colspan="1">{{totalAR}}</td>
+        </td>
+    </tr>
+    <tr><td colspan="7"><h5>Dettes</h5></td>
+        <td colspan="1">{{totalAP11}}</td>
+    </tr>
+    <tr><td colspan="7"><h5>Actifs net</h5></td> 
+        <td colspan="1">{{totalCR}}</td>
+    </tr>
+
+
+{% endblock %}

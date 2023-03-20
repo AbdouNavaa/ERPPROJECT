@@ -1,0 +1,14 @@
+{% extends "base/base.html" %}
+
+{% block body %}
+  <h1>Creer une nouvelle Journal</h1>
+  <form method="post" class="form-control form-control-lg">
+    {% csrf_token %}
+    <table class="table ">
+      {{ form.as_table }}
+      </table>
+      <input type="submit" style="margin-left: 24%; padding-left: 8%; padding-right: 9%;border-radius: 20px;" 
+      value="Create" class="btn btn-success">
+  </form>
+  </form>
+{% endblock %}

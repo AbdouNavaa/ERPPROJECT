@@ -53,10 +53,18 @@ urlpatterns = [
     path('create_fours/', views.FoursCreateView.as_view(), name='create_fours'),
 
 
+#     path('clients/', views.client_table, name='client_table'),
+#     path('clients/<int:client_id>/', views.client_details, name='client_details'),
+#     path('providers/', views.provider_table, name='provider_table'),
+#     path('providers/<int:provider_id>/', views.provider_details, name='provider_details'),
+
     path('GL/', views.GL, name='GL'),
+    path('BG/', views.BG, name='BG'),
+    path('BAC/', views.BAC, name='BAC'),
+    path('BAF/', views.BAF, name='BAF'),
     path('Bilan/', views.Bilan, name='Bilan'),
+    path('RG/', views.RG, name='RG'),
     path('ComptRes/', views.ComptRes, name='ComptRes'),
-    path('journaux/', views.Journaux, name='journaux'),
 
     # Paiements
     path('paiments/', views.Paiments, name='paiments'),
@@ -65,6 +73,14 @@ urlpatterns = [
     path('paiment/<int:pk>/delete/',
          views.PaiementDeleteView.as_view(), name='delete_pie'),
     path('create_pie/', views.PaiementCreateView.as_view(), name='create_pie'),
+    
+    # Paiements Fournisseur
+    path('paiments_fr/', views.PaimentsFr, name='paiments_fr'),
+    path('paiments_fr/<int:pk>/update/',
+         views.PaiementFr_UpdateView.as_view(), name='pieFr_update'),
+    path('paiment_fr/<int:pk>/delete/',
+         views.PaiementFr_DeleteView.as_view(), name='delete_pieFr'),
+    path('create_pieFr/', views.PaiementFr_CreateView.as_view(), name='create_pieFr'),
     # Ecritures Comptable
     path('ecriture/', views.EcritureComp, name='ecriture'),
     path('ecrit/<int:pk>/update/',
@@ -78,10 +94,10 @@ urlpatterns = [
     path('create_piece/', views.PieceCreateView.as_view(), name='create_piece'),
 
     # Graph
-    path('factures_graphique/', views.factures_graphique,
-         name='factures_graphique'),
-    path('facturesFr_graphique/', views.facturesFr_graphique,
-         name='facturesFr_graphique'),
+    path('factures_graphique/', views.factures_graphique,name='factures_graphique'),
+    path('facturesFr_graphique/', views.facturesFr_graphique,name='facturesFr_graphique'),
+    path('paiements_graphique/', views.paiements_graphique,name='paiements_graphique'),
+    path('paiementsFr_graphique/', views.paiementsFr_graphique,name='paiementsFr_graphique'),
 
 
     # devise
@@ -113,6 +129,13 @@ urlpatterns = [
          views.planDeleteView.as_view(), name='delete_plan'),
     path('plan/', views.plan, name='plan'),
     path('create_plan/', views.planCreateView.as_view(), name='create_plan'),
+    
+#     Journal
+    path('journal/<int:pk>/update/', views.journauxUpdateView.as_view(), name='journal_update'),
+    path('journal/<int:pk>/delete/', views.journauxDeleteView.as_view(), name='delete_journal'),
+    path('create_journal/', views.journauxCreateView.as_view(), name='create_journal'),
+    path('journaux/', views.Journaux, name='journaux'),
+    
 
 ]
 # + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

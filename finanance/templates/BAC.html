@@ -1,0 +1,60 @@
+{% extends "base/base.html" %}
+
+{% block body %}
+<h1>Balance agée des clients</h1>
+<table class="table">
+  <thead>
+    <tr style="font-style: italic; font-family: Georgia, 'Times New Roman', Times, serif;">
+      <th colspan="7"><h3>Name</h3></th>
+      <th colspan="1"><h3>Total</h3></th>
+    </tr>
+  </thead>
+    <tbody>
+{% for client_info in client_info_list %}
+    <tr style="background-color: black; color: white; font-style: italic; font-family: Georgia, 'Times New Roman', Times, serif;">
+      <th colspan="7"><h2>{{ client_info.client.Name }}</h2></th>
+      <th colspan="1"><h5>{{client_info.balance}}</h5></th>
+    </tr>
+    {% if client_info.factures %}
+    <tr>
+      <th colspan="8" style="color: black;background-color: white;font-style: italic; font-family: Georgia, 'Times New Roman', Times, serif;"><h4>Factures</h4></th>
+    </tr>
+
+    {% for facture in client_info.factures %}
+    <tr>
+      <th></th>
+            <th colspan="3">{{facture.code}}</th>
+            <th colspan="3">{{facture.date_facturation}}</th>
+            <th colspan="3">{{facture.total}}</th>
+          </tr>
+        {% endfor %}
+        {% endif %}
+    {% if client_info.paiements %}
+        
+        <tr>
+          <th colspan="8" style="color: black;background-color: white;font-style: italic; font-family: Georgia, 'Times New Roman', Times, serif;"><h4>Paiements</h4></th>
+        </tr>
+        {% for paiement in client_info.paiements %}
+        <tr>
+      <th></th>
+
+        <th colspan="3">{{paiement.code}}</th>
+        <th colspan="3">{{paiement.Date}}</th>
+        <th colspan="3">{{paiement.Montant}}</th>
+        </tr>
+        {% endfor %}
+        {% endif %}
+
+    <tr style="background-color: white; color: blue;font-style: italic; font-family: Georgia, 'Times New Roman', Times, serif;">
+      <th colspan="7"><h4> Total {{ client_info.client.Name }}</h4></th>
+      <th colspan="1"><h5>{{client_info.balance}}</h5></th>
+    </tr>
+{% endfor %}
+<tr style="background-color: black; color: white;font-style: italic; font-family: Georgia, 'Times New Roman', Times, serif;">
+  <th colspan="7"><h4> Total Balance agée des Clients</h4></th>
+  <th colspan="1"><h5>{{balance3}}</h5></th>
+</tr>
+</tbody>
+</table>
+  
+{% endblock %}

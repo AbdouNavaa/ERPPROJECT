@@ -1,10 +1,13 @@
-{% extends "base/base.html" %} {% block body %}
+{% extends "base/base.html" %}
+
+{% block body %}
 <h1>Create a new immobilisations</h1>
-<form method="post" class="form-content">
+  <form method="post" class="form-control form-control-lg">
     {% csrf_token %}
-    <table>
-        {{ form.as_table }}
-    </table>
-    <input type="submit" value="Create" class="btn btn-dark">
-</form>
+    <table class="table ">
+      {{ form.as_table }}
+      </table>
+      <input type="submit" style="margin-left: 43%; padding-left: 9%; padding-right: 8%;border-radius: 20px;" 
+      value="Create" class="btn btn-success">
+  </form>
 {% endblock %}

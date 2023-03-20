@@ -4,7 +4,7 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.contrib import messages
 # from typing import Type
 from .models import *
-from .forms import ClientForm, FourForm, FactFormCl, FactFormFr, PieceForm, PaiementForm, NoteForm, ProductForm, deviseForm, immobForm, planForm, taxeForm
+from .forms import ClientForm, FourForm, FactFormCl, FactFormFr, PieceForm, PaiementForm, NoteForm, ProductForm, deviseForm,JournauxForm, immobForm, planForm,Paiement_Fr_Form, taxeForm
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, DeleteView, CreateView
 # from . import form
@@ -12,7 +12,7 @@ from django.views.generic import UpdateView, DeleteView, CreateView
 from django.shortcuts import render
 import matplotlib.pyplot as plt
 
-
+# GFC
 def factures_graphique(request):
     factures = FactureCl.objects.all()
     montants = [facture.total for facture in factures]
@@ -22,6 +22,31 @@ def factures_graphique(request):
     plt.ylabel('Montants totaux')
     plt.title('Montants totaux des factures')
     plt.savefig('factures_graphique.png')
+    plt.show()
+    return render(request, 'index.html')
+
+# Paiements
+def paiements_graphique(request):
+    paies = Paiements.objects.all()
+    montants = [paie.montant for paie in paies]
+    noms_paies = [paie.code for paie in paies]
+    plt.bar(noms_paies, montants)
+    plt.xlabel('Noms de paies')
+    plt.ylabel('Montants totaux')
+    plt.title('Montants totaux des paies')
+    plt.savefig('paies_graphique.png')
+    plt.show()
+    return render(request, 'index.html')
+# Paiements Fr
+def paiementsFr_graphique(request):
+    paies = PaiementsFr.objects.all()
+    montants = [paie.montant for paie in paies]
+    noms_paies = [paie.code for paie in paies]
+    plt.bar(noms_paies, montants)
+    plt.xlabel('Noms de paies')
+    plt.ylabel('Montants totaux')
+    plt.title('Montants totaux des paies')
+    plt.savefig('paiesFr_graphique.png')
     plt.show()
     return render(request, 'index.html')
 
@@ -164,14 +189,24 @@ class FactFrCreateView(CreateView):
 def factCl(request):
 
     facturesList = FactureCl.objects.all()
-    return render(request, 'factCl.html', {"facturesList": facturesList})
+    Total1 = 0
+    Total2 = 0
+    for p in facturesList:
+        Total1=Total1+p.HTaxe
+        Total2=Total2+p.total
+    return render(request, 'factCl.html', {"facturesList": facturesList,"Total1":Total1,"Total2":Total2})
 # END
 
 
 def factFr(request):
 
     facturesList = FactureFr.objects.all()
-    return render(request, 'factFr.html', {"facturesList": facturesList})
+    Total1 = 0
+    Total2 = 0
+    for p in facturesList:
+        Total1=Total1+p.HTaxe
+        Total2=Total2+p.total
+    return render(request, 'factFr.html', {"facturesList": facturesList,"Total1":Total1,"Total2":Total2})
 
 
 # Update
@@ -220,7 +255,12 @@ class NoteCreateView(CreateView):
 def notes(request):
 
     notes = Notes.objects.all()
-    return render(request, 'notes.html', {"notes": notes})
+    Total1 = 0
+    Total2 = 0
+    for p in notes:
+        Total1=Total1+p.HTaxe
+        Total2=Total2+p.total
+    return render(request, 'notes.html', {"notes": notes,"Total1":Total1,"Total2":Total2})
 # Update
 
 
@@ -248,15 +288,17 @@ def Pieces(request):
     facturesList = FactureFr.objects.all()
     facturesClList = FactureCl.objects.all()
     paiements = Paiements.objects.all()
+    paiementsFr = PaiementsFr.objects.all()
     notes = Notes.objects.all()
     # piece =None
     Total1 = 0
     Total2 = 0
     Total3 = 0
     Total4 = 0
+    Total5 = 0
     Total = 0
     for p in paiements:
-        Total1=Total1+p.Montant 
+        Total1=Total1+p.montant 
     for f2 in facturesClList:
         Total2 = Total2+f2.total
     for f in facturesList:
@@ -264,8 +306,10 @@ def Pieces(request):
     for n in notes:
         Total4 = Total4+n.total
 
-    Total = Total1 + Total2 + Total3 + Total4
-    return render(request, 'pieces.html', {"pieces": pieces, "paiements": paiements,
+    for p in paiementsFr:
+        Total5=Total5+p.montant 
+    Total = Total1 + Total2 - Total3 + Total4 + Total5
+    return render(request, 'pieces.html', {"pieces": pieces, "paiements": paiements,"paiementsFr": paiementsFr,
                                            "facturesList": facturesList, "notes": notes, "facturesClList": facturesClList, 'Total': Total})
 
 
@@ -299,29 +343,40 @@ def EcritureComp(request):
     facturesList = FactureFr.objects.all()
     facturesClList = FactureCl.objects.all()
     paiements = Paiements.objects.all()
+    paiementsFr = PaiementsFr.objects.all()
+    notes = Notes.objects.all()
 
     # piece =None
     Total1 = 0
     Total2 = 0
     Total3 = 0
     Total4 = 0
+    Total44 = 0
+    Total11 = 0
+    Total22 = 0
     Total5 = 0
+    TotalPF = 0
     Total = 0
     # for p in pieces:
     #             Total1=Total1+p.deb
     #             Total4=Total4+p.cred
     for f2 in facturesClList:
-        Total1 = Total1+f2.HTaxe + f2.TVA
         Total2 = Total2 + f2.total
+    for n in notes:
+        Total1 = Total1 + n.total
     for f in facturesList:
         Total3 = Total3+f.HTaxe + f.TVA
         Total4 = Total4 + f.total1
-    # for p in paiements:
-    #     Total2=Total2+p.
+    for p in paiements:
+        Total44=Total44+p.Cred + p.Deb
+    for p in paiementsFr:
+        TotalPF=TotalPF+p.Cred + p.Deb
 
-    Total = Total2 + Total3
-    Total5 = Total2 - Total4
-    return render(request, 'ecriture.html', {"paiements": paiements, "pieces": pieces, "facturesList": facturesList, "facturesClList": facturesClList, 'Total': Total, 'Total5': Total5})
+    Total = Total2 + Total3 + Total44 - Total1 + TotalPF
+    Total5 = Total2 - Total4 + Total44 - Total1 + TotalPF
+    return render(request, 'ecriture.html', {"paiements": paiements,"paiementsFr": paiementsFr, "notes": notes, 
+                                             "facturesList": facturesList, "facturesClList": facturesClList, 
+                                             'Total': Total, 'Total5': Total5})
 
 
 class EcritUpdateView(UpdateView):
@@ -333,7 +388,70 @@ class EcritUpdateView(UpdateView):
 # End Ecriture
 
 
+# End Ecriture
 def GL(request):
+    # pieces = None
+
+    factCl = FactureCl.objects.all()
+    factFr = FactureFr.objects.all()
+    paie = Paiements.objects.all()
+    paies = PaiementsFr.objects.all()
+    note = Notes.objects.all()
+
+    balance1 = 0;balance2 = 0;balance3 = 0;balance4 = 0;balance5 = 0;balance6 = 0;balance7 = 0;balancePF = 0;balancePF1 = 0;
+    balance = 0;totalOR = 0;totalOP1 = 0;totalOP = 0;totalAR = 0;totalAR1 = 0; totalAR2 = 0 ;totalTP = 0
+    totalTP1 = 0;totalAP = 0;totalAP1 = 0;totalTR = 0;totalTR1 = 0;totalTR2 = 0;totalPS = 0;totalPS1 = 0;totalPS2 = 0;totalEX = 0;
+    totalEX1 = 0;TG = 0;TG1 = 0;TG2 = 0
+    for f in factCl:
+        balance1=balance1+f.total
+        totalTR1 = totalTR1 + f.TVA
+        totalPS1 = totalPS1 + f.HTaxe
+                
+    for f in factFr:
+        balance2=balance2-f.total
+        totalTP1=totalTP1+f.TVA
+        totalEX1 = totalEX1 + f.HTaxe
+
+    for p in paie:
+        balance3=balance3+p.Deb
+        balance6=balance6-p.Cred
+    for p in paies:
+        balancePF=balancePF+p.Deb
+        balancePF1=balancePF1-p.Cred
+    for n in note:
+        balance7=balance7-n.total
+        totalTR2 = totalTR2 + n.TVA
+        totalPS2 = totalPS2 + n.HTaxe1
+
+    totalOR = totalOR + balance3 + balancePF
+    totalOP = totalOP - balance6 - balancePF1
+    totalOP1 = totalOP1 - totalOP
+    totalAR1 = totalAR1 + balance1 - balance6 
+    totalAR2 =-( totalAR2 - balance7 - balance3 )
+    totalAR = totalAR + totalAR1 - totalAR2
+    totalTP = totalTP + totalTP1
+    totalAP = totalAP - balance2 
+    totalAP1 =  - balancePF1
+    totalAP2 = totalAP1 - totalAP
+    totalTR = totalTR2 - totalTR1
+    totalPS = totalPS2 - totalPS1
+    totalEX = totalEX + totalEX1
+ 
+    TG1 = totalOR + totalAR1 + totalTP + totalTR2 + totalPS2 + totalEX + totalAP1
+    TG2 = totalOP + totalAR2 + totalAP + totalTR1 + totalPS1 
+    TG = TG1 - TG2
+    return render(request, 'grandLiver.html', {"paie": paie,"paies": paies,"factCl":
+        factCl,"factFr": factFr,"note": note,
+        'totalOR':totalOR,'totalOP':totalOP,'totalOP1':totalOP1,'totalAR':totalAR,'totalAR1':totalAR1,
+        'totalAR2':totalAR2,'totalTP':totalTP,'totalAP':totalAP,'totalAP1':totalAP1,'totalAP2':totalAP2,
+        'totalTR':totalTR,'totalTR1':totalTR1,'totalTR2':totalTR2,
+        'totalPS':totalPS,'totalPS1':totalPS1,'totalPS2':totalPS2,
+        'totalEX':totalEX,'totalEX1':totalEX1,
+        'TG':TG,'TG1':TG1,'TG2':TG2,
+        })
+    
+# Balance General
+def BG(request):
     # pieces = None
 
     factCl = FactureCl.objects.all()
@@ -341,41 +459,361 @@ def GL(request):
     paie = Paiements.objects.all()
     note = Notes.objects.all()
 
-    balance1 = 0
-    balance2 = 0
-    balance3 = 0
-    balance4 = 0
-    balance5 = 0
-    balance6 = 0
-    balance7 = 0
-    balance = 0
+    balance1 = 0;balance2 = 0;balance3 = 0;balance4 = 0;balance5 = 0;balance6 = 0;balance7 = 0;
+    balance = 0;totalOR = 0;totalOP1 = 0;totalOP = 0;totalAR = 0;totalAR1 = 0; totalAR2 = 0 ;totalTP = 0
+    totalTP1 = 0;totalAP = 0;totalAP1 = 0;totalTR = 0;totalTR1 = 0;totalTR2 = 0;totalPS = 0;totalPS1 = 0;totalPS2 = 0;totalEX = 0;
+    totalEX1 = 0;TG = 0;TG1 = 0;TG2 = 0
     for f in factCl:
-                balance1=balance1+f.total
+        balance1=balance1+f.total
+        totalTR1 = totalTR1 + f.TVA
+        totalPS1 = totalPS1 + f.HTaxe
+                
     for f in factFr:
         balance2=balance2-f.total
+        totalTP1=totalTP1+f.TVA
+        totalEX1 = totalEX1 + f.HTaxe
 
     for p in paie:
-        balance3 = balance3+p.Deb
-        balance6 = balance6-p.Cred
+        balance3=balance3+p.Deb
+        balance6=balance6-p.Cred
     for n in note:
         balance7=balance7-n.total
-    balance = balance + balance1 +balance3
-    balance4 = balance4 + balance2 + balance6
-    balance5 = balance5 + balance + balance4
+        totalTR2 = totalTR2 + n.TVA
+        totalPS2 = totalPS2 + n.HTaxe1
+
+    totalOR = totalOR + balance3
+    totalOP = totalOP - balance6
+    totalOP1 = totalOP1 - totalOP
+    totalAR1 = totalAR1 + balance1 - balance6
+    totalAR2 =-( totalAR2 - balance7 - balance3)
+    totalAR = totalAR + totalAR1 - totalAR2
+    totalTP = totalTP + totalTP1
+    totalAP = totalAP - balance2
+    totalAP1 = totalAP1 - totalAP
+    totalTR = totalTR2 - totalTR1
+    totalTR11 =0
+    totalTR11 =totalTR11 - totalTR
+    totalPS = totalPS1 - totalPS2
+    totalEX = totalEX + totalEX1
+ 
+    TG1 = totalOR + totalAR + totalTP + totalEX
+    TG2 = totalOP + totalAP + totalTR11 + totalPS
+    TG = totalOR + totalOP1 + totalAR + totalTP + totalAP1 + totalTR + totalPS + totalEX
+    return render(request, 'BG.html', {"paie": paie,"factCl":
+        factCl,"factFr": factFr,"note": note,
+        'totalOR':totalOR,'totalOP':totalOP,'totalOP1':totalOP1,'totalAR':totalAR,'totalAR1':totalAR1,
+        'totalAR2':totalAR2,'totalTP':totalTP,'totalAP':totalAP,'totalAP1':totalAP1,
+        'totalTR':totalTR,'totalTR1':totalTR1,'totalTR11':totalTR11,
+        'totalPS':totalPS,'totalPS1':totalPS1,'totalPS2':totalPS2,
+        'totalEX':totalEX,'totalEX1':totalEX1,
+        'TG':TG,'TG1':TG1,'TG2':TG2,
+        })
+
+
+def BAC(request):
+    clients = Client.objects.all()
+
+    client_info_list = []
+    balance3 = 0
     
-    bal = -balance4
-    return render(request, 'grandLiver.html', {"paie": paie,"factCl": factCl,"factFr": factFr, 'balance':balance,'bal':bal,'balance5':balance5})
+    for client in clients:
+        factures = FactureCl.objects.filter(client=client)
+        paiements = Paiements.objects.filter(Client=client)
+
+        balance = 0; balance1 = 0; balance2 = 0;
+        for f in factures:
+            balance1=balance1+f.total
+
+        for p in paiements:
+            balance2=balance2+p.Montant
+        balance = balance + balance1 + balance2
+        balance3 = balance3 + balance 
+        client_info_list.append({
+            'client': client,
+            'factures': factures,
+            'paiements': paiements,
+            'balance' : balance
+        })
+
+    context = {
+        'client_info_list': client_info_list,
+        'balance3' : balance3
+    }
+
+    return render(request, 'BAC.html', context)
+
+def BAF(request):
+    fournisseurs = Fournisseur.objects.all()
+    
+    fournisseur_info_list = []
+    balance3 = 0
+    for fournisseur in fournisseurs:
+        factures = FactureFr.objects.filter(fournisseur=fournisseur)
+        paiements = PaiementsFr.objects.filter(fournisseur=fournisseur)
+
+        balance = 0; balance1 = 0; balance2 = 0;
+        for f in factures:
+            balance1=balance1+f.total
+
+        for p in paiements:
+            balance2=balance2+p.Montant
+        balance = balance + balance1 + balance2
+        balance3 = balance3 + balance 
+        fournisseur_info_list.append({
+            'fournisseur': fournisseur,
+            'factures': factures,
+            'paiements': paiements,
+            'balance' : balance
+        })
+
+    context = {
+        'fournisseur_info_list': fournisseur_info_list,
+        'balance3' : balance3
+    }
+    return render(request, 'BAF.html', context)
 
 
+
+# # Hmmmmmmm
+# def client_table(request):
+#     clients = Client.objects.all()
+
+#     context = {
+#         'clients': clients,
+#     }
+
+#     return render(request, 'client_table.html', context)
+
+# def client_details(request, client_id):
+#     client = Client.objects.get(pk=client_id)
+#     factures = FactureCl.objects.filter(client=client)
+#     paiements = Paiements.objects.filter(Client=client)
+
+#     context = {
+#         'client': client,
+#         'factures': factures,
+#         'paiements': paiements,
+#     }
+
+#     return render(request, 'client_details.html', context)
+# #Hmmmmm 
+
+# Bilan
+def Bilan(request):
+    
+    factCl = FactureCl.objects.all()
+    factFr = FactureFr.objects.all()
+    paie = Paiements.objects.all()
+    paies = PaiementsFr.objects.all()
+    note = Notes.objects.all()
+
+    balance1 = 0;balance2 = 0;balance3 = 0;balance4 = 0;balance5 = 0;balance6 = 0;balance7 = 0;balancePF = 0;balancePF1 = 0;
+    balance = 0;totalOR = 0;totalOP1 = 0;totalOP = 0;totalAR = 0;totalAR1 = 0; totalAR2 = 0 ;totalTP = 0
+    totalTP1 = 0;totalAP = 0;totalAP1 = 0;totalTR = 0;totalTR1 = 0;totalTR2 = 0;totalPS = 0;totalPS1 = 0;totalPS2 = 0;totalEX = 0;
+    totalEX1 = 0;TG = 0;TG1 = 0;TG2 = 0;TotalAC =0;TotalAC1 =0
+    for f in factCl:
+        balance1=balance1+f.total
+        totalTR1 = totalTR1 + f.TVA
+        totalPS1 = totalPS1 + f.HTaxe
+                
+    for f in factFr:
+        balance2=balance2-f.total
+        totalTP1=totalTP1+f.TVA
+        totalEX1 = totalEX1 + f.HTaxe
+
+    for p in paie:
+        balance3=balance3+p.Deb
+        balance6=balance6-p.Cred
+    for p in paies:
+        balancePF=balancePF+p.Deb
+        balancePF1=balancePF1-p.Cred
+    for n in note:
+        balance7=balance7-n.total
+        totalTR2 = totalTR2 + n.TVA
+        totalPS2 = totalPS2 + n.HTaxe1
+
+    totalOR = totalOR + balance3 + balancePF
+    totalOP = totalOP - balance6 - balancePF1
+    totalOP1 = totalOP1 - totalOP
+    totalAR1 = totalAR1 + balance1 - balance6 
+    totalAR2 =-( totalAR2 - balance7 - balance3 )
+    totalAR = totalAR + totalAR1 - totalAR2
+    totalTP = totalTP + totalTP1
+    totalAP = totalAP - balance2 
+    totalAP1 =  - balancePF1
+    totalAP2 = totalAP1 - totalAP
+    totalTR = totalTR2 - totalTR1
+    totalPS = totalPS2 - totalPS1
+    totalEX = totalEX + totalEX1
+ 
+    TG1 = totalOR + totalAR1 + totalTP + totalTR2 + totalPS2 + totalEX
+    TG2 = totalOP + totalAR2 + totalAP + totalTR1 + totalPS1 
+    TG = TG1 - TG2
+    
+    TotalAC = TotalAC + totalOR + totalOP1 + totalTP
+    TotalAC1 = TotalAC + totalAR
+    TotalDCT = -(totalTR + totalAP2)
+    totalAP11 = - totalAP2
+    totalTR11 = -totalTR
+    totalCP = -totalPS - totalEX
+    totalPCP = totalCP + TotalDCT
+    TotalBillan = TotalAC1 - totalPCP
+    return render(request, 'bilan.html', {"paie": paie,"paies": paies,"factCl":
+        factCl,"factFr": factFr,"note": note,
+        'totalOR':totalOR,'totalOP':totalOP,'totalOP1':totalOP1,'totalAR':totalAR,'totalAR1':totalAR1,
+        'totalAR2':totalAR2,'totalTP':totalTP,'totalAP':totalAP,'totalAP1':totalAP1,
+        'totalTR':totalTR,'totalTR1':totalTR1,'totalTR2':totalTR2,
+        'totalPS':totalPS,'totalPS1':totalPS1,'totalPS2':totalPS2,
+        'totalEX':totalEX,'totalEX1':totalEX1,
+        'TG':TG,'TG1':TG1,'TG2':TG2,'TotalAC':TotalAC,'TotalAC1':TotalAC1,'TotalDCT':TotalDCT,
+        'totalAP11':totalAP11,'totalTR11':totalTR11,'totalCP':totalCP,'totalPCP':totalPCP,'TotalBillan':TotalBillan
+        })
+# Compte de result
+# Compte de result
+def ComptRes(request):
+    
+    factCl = FactureCl.objects.all()
+    factFr = FactureFr.objects.all()
+    paie = Paiements.objects.all()
+    note = Notes.objects.all()
+
+    balance1 = 0;balance2 = 0;balance3 = 0;balance4 = 0;balance5 = 0;balance6 = 0;balance7 = 0;
+    balance = 0;totalOR = 0;totalOP1 = 0;totalOP = 0;totalAR = 0;totalAR1 = 0; totalAR2 = 0 ;totalTP = 0
+    totalTP1 = 0;totalAP = 0;totalAP1 = 0;totalTR = 0;totalTR1 = 0;totalTR2 = 0;totalPS = 0;totalPS1 = 0;totalPS2 = 0;totalEX = 0;
+    totalEX1 = 0;TG = 0;TG1 = 0;TG2 = 0;TotalAC =0;TotalAC1 =0
+    for f in factCl:
+        balance1=balance1+f.total
+        totalTR1 = totalTR1 + f.TVA
+        totalPS1 = totalPS1 + f.HTaxe
+                
+    for f in factFr:
+        balance2=balance2-f.total
+        totalTP1=totalTP1+f.TVA
+        totalEX1 = totalEX1 + f.HTaxe
+
+    for p in paie:
+        balance3=balance3+p.Deb
+        balance6=balance6-p.Cred
+    for n in note:
+        balance7=balance7-n.total
+        totalTR2 = totalTR2 + n.TVA
+        totalPS2 = totalPS2 + n.HTaxe1
+
+    totalOR = totalOR + balance3
+    totalOP = totalOP - balance6
+    totalOP1 = totalOP1 - totalOP
+    totalAR1 = totalAR1 + balance1 - balance6
+    totalAR2 =-( totalAR2 - balance7 - balance3)
+    totalAR = totalAR + totalAR1 - totalAR2
+    totalTP = totalTP + totalTP1
+    totalAP = totalAP - balance2
+    totalAP1 = totalAP1 - totalAP
+    totalTR = totalTR2 - totalTR1
+    totalPS = totalPS2 - totalPS1
+    totalEX = totalEX + totalEX1
+ 
+    TG1 = totalOR + totalAR1 + totalTP + totalTR2 + totalPS2 + totalEX
+    TG2 = totalOP + totalAR2 + totalAP + totalTR1 + totalPS1 
+    TG = totalOR + totalOP1 + totalAR + totalTP + totalAP1 + totalTR + totalPS + totalEX
+    
+    TotalAC = TotalAC + totalOR + totalOP1 + totalTP
+    TotalAC1 = TotalAC + totalAR
+    TotalDCT = -(totalTR + totalAP1)
+    totalAP11 = -totalAP1
+    totalTR11 = -totalTR
+    TotalRev = -totalPS
+    totalCR = TotalRev - totalEX
+    return render(request, 'compte_res.html', {"paie": paie,"factCl":
+        factCl,"factFr": factFr,"note": note,
+        'totalOR':totalOR,'totalOP':totalOP,'totalOP1':totalOP1,'totalAR':totalAR,'totalAR1':totalAR1,
+        'totalAR2':totalAR2,'totalTP':totalTP,'totalAP':totalAP,'totalAP1':totalAP1,
+        'totalTR':totalTR,'totalTR1':totalTR1,'totalTR2':totalTR2,
+        'totalPS':totalPS,'totalPS1':totalPS1,'totalPS2':totalPS2,
+        'totalEX':totalEX,'totalEX1':totalEX1,
+        'TG':TG,'TG1':TG1,'TG2':TG2,'TotalAC':TotalAC,'TotalAC1':TotalAC1,'TotalDCT':TotalDCT,
+        'totalAP11':totalAP11,'totalTR11':totalTR11,'TotalRev':TotalRev,'totalCR':totalCR
+        })
+# Compte de result
+def RG(request):
+    
+    factCl = FactureCl.objects.all()
+    factFr = FactureFr.objects.all()
+    paie = Paiements.objects.all()
+    paies = PaiementsFr.objects.all()
+    note = Notes.objects.all()
+
+    balance1 = 0;balance2 = 0;balance3 = 0;balance4 = 0;balance5 = 0;balance6 = 0;balance7 = 0;balancePF = 0;balancePF1 = 0;
+    balance = 0;totalOR = 0;totalOP1 = 0;totalOP = 0;totalAR = 0;totalAR1 = 0; totalAR2 = 0 ;totalTP = 0
+    totalTP1 = 0;totalAP = 0;totalAP1 = 0;totalTR = 0;totalTR1 = 0;totalTR2 = 0;totalPS = 0;totalPS1 = 0;totalPS2 = 0;totalEX = 0;
+    totalEX1 = 0;TG = 0;TG1 = 0;TG2 = 0;TotalAC =0;TotalAC1 =0
+    for f in factCl:
+        balance1=balance1+f.total
+        totalTR1 = totalTR1 + f.TVA
+        totalPS1 = totalPS1 + f.HTaxe
+                
+    for f in factFr:
+        balance2=balance2-f.total
+        totalTP1=totalTP1+f.TVA
+        totalEX1 = totalEX1 + f.HTaxe
+
+    for p in paie:
+        balance3=balance3+p.Deb
+        balance6=balance6-p.Cred
+    for p in paies:
+        balancePF=balancePF+p.Deb
+    balancePF1=balancePF1-p.Cred
+    for n in note:
+        balance7=balance7-n.total
+        totalTR2 = totalTR2 + n.TVA
+        totalPS2 = totalPS2 + n.HTaxe1
+
+    totalOR = totalOR + balance3
+    totalOP = totalOP - balance6
+    totalOP1 = totalOP1 - totalOP
+    totalAR1 = totalAR1 + balance1 - balance6
+    totalAR2 =-( totalAR2 - balance7 - balance3)
+    totalAR = totalAR + totalAR1 - totalAR2
+    totalTP = totalTP + totalTP1
+    totalAP = totalAP - balance2 
+    totalAP1 =  - balancePF1
+    totalAP2 = totalAP1 - totalAP
+    totalTR = totalTR2 - totalTR1
+    totalPS = totalPS2 - totalPS1
+    totalEX = totalEX + totalEX1
+ 
+    TG1 = totalOR + totalAR1 + totalTP + totalTR2 + totalPS2 + totalEX
+    TG2 = totalOP + totalAR2 + totalAP + totalTR1 + totalPS1 
+    TG = totalOR + totalOP1 + totalAR + totalTP + totalAP1 + totalTR + totalPS + totalEX
+    
+    TotalAC = TotalAC + totalOR + totalOP1 + totalTP
+    TotalAC1 = TotalAC + totalAR
+    TotalDCT = -(totalTR + totalAP1)
+    totalAP11 = -totalAP2
+    totalTR11 = -totalTR
+    TotalRev = -totalPS
+    totalCR = TotalRev - totalEX
+    return render(request, 'RG.html', {"paie": paie,"factCl":
+        factCl,"factFr": factFr,"note": note,
+        'totalOR':totalOR,'totalOP':totalOP,'totalOP1':totalOP1,'totalAR':totalAR,'totalAR1':totalAR1,
+        'totalAR2':totalAR2,'totalTP':totalTP,'totalAP':totalAP,'totalAP1':totalAP1,
+        'totalTR':totalTR,'totalTR1':totalTR1,'totalTR2':totalTR2,
+        'totalPS':totalPS,'totalPS1':totalPS1,'totalPS2':totalPS2,
+        'totalEX':totalEX,'totalEX1':totalEX1,
+        'TG':TG,'TG1':TG1,'TG2':TG2,'TotalAC':TotalAC,'TotalAC1':TotalAC1,'TotalDCT':TotalDCT,
+        'totalAP11':totalAP11,'totalTR11':totalTR11,'TotalRev':TotalRev,'totalCR':totalCR
+        })
 
 # Paiments
 # Affiche
 
 
 def Paiments(request):
-
+    
     paiments = Paiements.objects.all()
-    return render(request, 'paiments.html', {"paiments": paiments})
+    Total1 = 0
+    for p in paiments:
+        Total1=Total1+p.Montant
+    return render(request, 'paiments.html', {"paiments": paiments,"Total1":Total1})
 
 
 class PaiementCreateView(CreateView):
@@ -397,6 +835,35 @@ class PaiementDeleteView(DeleteView):
     template_name = 'pie_confirm_delete.html'
     success_url = reverse_lazy('paiments')
 
+#Paiements Fournisseur 
+def PaimentsFr(request):
+
+    paiments = PaiementsFr.objects.all()
+    Total1 = 0
+    for p in paiments:
+        Total1=Total1+p.Montant
+    return render(request, 'paimentsFr.html', {"paiments": paiments,"Total1":Total1})
+
+
+class PaiementFr_CreateView(CreateView):
+    model = PaiementsFr
+    template_name = 'pie_Fr_form.html'
+    fields = '__all__'
+    success_url = reverse_lazy('paiments_fr')
+
+
+class PaiementFr_UpdateView(UpdateView):
+    model = PaiementsFr
+    form_class = Paiement_Fr_Form
+    template_name = 'update_pieFr.html'
+    success_url = reverse_lazy('paiments_fr')
+
+
+class PaiementFr_DeleteView(DeleteView):
+    model = PaiementsFr
+    template_name = 'pieFr_confirm_delete.html'
+    success_url = reverse_lazy('paiments_fr')
+
 # Affiche
 
 
@@ -404,6 +871,25 @@ def Journaux(request):
 
     journaux = Journal.objects.all()
     return render(request, 'journaux.html', {"journaux": journaux})
+
+class journauxCreateView(CreateView):
+    model = Journal
+    template_name = 'journaux_form.html'
+    fields = '__all__'
+    success_url = reverse_lazy('journaux')
+
+
+class journauxUpdateView(UpdateView):
+    model = Journal
+    form_class = JournauxForm
+    template_name = 'update_journaux.html'
+    success_url = reverse_lazy('journaux')
+
+
+class journauxDeleteView(DeleteView):
+    model = Journal
+    template_name = 'journaux_confirm_delete.html'
+    success_url = reverse_lazy('journaux')
 
 
 # Logs

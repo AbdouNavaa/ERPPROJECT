@@ -78,6 +78,79 @@
       <th scope="row">{{fact.TVA}}</th>
     </tr>
     {%endfor%} 
+    {% comment %} notes {% endcomment %}
+    {% for note in notes %}
+    <tr>
+      <th scope="row">{{note.date_facturation}}</th>
+      <th scope="row">{{note.code}}</th>
+      <th scope="row">{{note.client}}</th>
+      <th scope="row">{{note.produit}}</th>
+      <th scope="row">{{note.total1}}</th>
+      <th scope="row">0.0</th>
+    </tr>
+    {%endfor%} 
+    {% for note in notes %}
+    <tr>
+      <th scope="row">{{note.date_facturation}}</th>
+      <th scope="row">{{note.code}}</th>
+      <th scope="row">{{note.client}}</th>
+      <th scope="row">{{note.produit}}</th>
+      <th scope="row">0.0</th>
+      <th scope="row">{{note.HTaxe1}}</th>
+    </tr>
+    {%endfor%} 
+    {% for note in notes %}
+    <tr>
+      <th scope="row">{{note.date_facturation}}</th>
+      <th scope="row">{{note.code}}</th>
+      <th scope="row">{{note.client}}</th>
+      <th scope="row">{{note.produit}}</th>
+      <th scope="row">0.0</th>
+      <th scope="row">{{note.TVA}}</th>
+    </tr>
+    {%endfor%} 
+      {% comment %} Paiements {% endcomment %}
+      {% for paie in paiements %}
+      <tr>
+        <th scope="row">{{paie.Date}}</th>
+        <th scope="row">{{paie.code}}</th>
+        <th scope="row">{{paie.Client}}</th>
+        <th scope="row">Remboursement client {{paie.Cred}}</th>
+        <th scope="row">{{paie.Deb}}</th>
+        <th scope="row">{{paie.Cred}}</th>
+      </tr>
+      {%endfor%} 
+      {% for paie in paiements %}
+      <tr>
+        <th scope="row">{{paie.Date}}</th>
+        <th scope="row">{{paie.code}}</th>
+        <th scope="row">{{paie.Client}}</th>
+        <th scope="row">Paiement client {{paie.Deb}}</th>
+        <th scope="row">{{paie.Cred}}</th>
+        <th scope="row">{{paie.Deb}}</th>
+      </tr>
+      {%endfor%} 
+      {% comment %} Paiements Fournisseurs {% endcomment %}
+      {% for paie in paiementsFr %}
+      <tr>
+        <th scope="row">{{paie.Date}}</th>
+        <th scope="row">{{paie.code}}</th>
+        <th scope="row">{{paie.fournisseur}}</th>
+        <th scope="row">Remboursement client {{paie.Cred}}</th>
+        <th scope="row">{{paie.Deb}}</th>
+        <th scope="row">{{paie.Cred}}</th>
+      </tr>
+      {%endfor%} 
+      {% for paie in paiements %}
+      <tr>
+        <th scope="row">{{paie.Date}}</th>
+        <th scope="row">{{paie.code}}</th>
+        <th scope="row">{{paie.fournisseur}}</th>
+        <th scope="row">Paiement client {{paie.Deb}}</th>
+        <th scope="row">{{paie.Cred}}</th>
+        <th scope="row">{{paie.Deb}}</th>
+      </tr>
+      {%endfor%} 
 
     <tr style="background-color: black ;font-weight: bolder; color: white;">
       <th scope="row" >Totals</th>

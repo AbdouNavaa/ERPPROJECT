@@ -1,0 +1,13 @@
+{% extends "base/base.html" %}
+
+{% block body %}
+  <h1>Create a new Paiment</h1>
+  <form method="post" class="form-content">
+    {% csrf_token %}
+    <table class="table  form-control-lg">
+      {{ form.as_table }}
+      </table>
+      <input type="submit" style="margin-left: 30%; padding-left: 8%; padding-right: 8%;border-radius: 20px;" 
+      value="Create" class="btn btn-success">
+  </form>
+{% endblock %}

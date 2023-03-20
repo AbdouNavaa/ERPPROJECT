@@ -22,7 +22,7 @@
             display: none;
             position: absolute;
             background-color: #f1f1f1;
-            min-width: 160px;
+            min-width: 250px;
             font-size: 15px;
             font-style: italic;
             box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -79,35 +79,46 @@
         <div class="dropdown">
             <div class="dropbtn">Clients</div>
             <div class="dropdown-content">
+                <a href="{% url 'produits'  %}">Produits</a>
+                <a href="{% url 'clientList'  %}">Clients </a>
                 <a href="{% url 'factCl'  %}">Factures</a>
                 <a href="{% url 'notes'  %}">Notes de credit</a>
                 <a href="{% url 'paiments'  %}">Paiments</a>
-                <a href="{% url 'produits'  %}">Produits</a>
-                <a href="{% url 'clientList'  %}">Clients </a>
             </div>
         </div>
         <div class="dropdown">
             <div class="dropbtn">Fournisseurs</div>
             <div class="dropdown-content">
-                <a href="{% url 'factFr'  %}">Factures</a>
                 <a href="{% url 'produits'  %}">Produits</a>
                 <a href="{% url 'foursList'  %}">Fournisseurs </a>
+                <a href="{% url 'factFr'  %}">Factures</a>
+                <a href="{% url 'paiments_fr'  %}">Paiments</a>
             </div>
         </div>
         <div class="dropdown">
             <div class="dropbtn">Comptabilite</div>
             <div class="dropdown-content">
+                <h5>Journaux</h5>
                 <a href="{% url 'pieces'  %}">Piece Comptables </a>
                 <a href="{% url 'ecriture'  %}">Ecriture Comptable</a>
+                <h5>Gestion</h5>
                 <a href="{% url 'immob'  %}">immobilisations</a>
+                <a href="#">Revenus différés</a>
             </div>
         </div>
         <div class="dropdown">
             <div class="dropbtn">Analyse</div>
             <div class="dropdown-content">
+                <h5>Rapports de relevé</h5>
                 <a href="{% url 'Bilan'  %}">Billan </a>
+                <a href="{% url 'RG'  %}">Resime General </a>
                 <a href="{% url 'ComptRes'  %}">Compte de Resultat </a>
-                <a href="{% url 'GL'  %}">GL</a>
+                <h5>Rapports d'audit</h5>
+                <a href="{% url 'GL'  %}">Grand Livre</a>
+                <a href="{% url 'BG'  %}">Balance General</a>
+                <h5>Rapports de partenaires</h5>
+                <a href="{% url 'BAC'  %}">Balance agée des clients</a>
+                <a href="{% url 'BAF'  %}">Balance agée des Fournisseurs</a>
             </div>
         </div>
 
@@ -125,6 +136,8 @@
             <div class="dropdown-content">
                 <a href="/factures_graphique">GCL </a>
                 <a href="/facturesFr_graphique">GFR </a>
+                <a href="/paiements_graphique">GPC </a>
+                <a href="/paiementsFr_graphique">GPF </a>
             </div>
         </div>
 
